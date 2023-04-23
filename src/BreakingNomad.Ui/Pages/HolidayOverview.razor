@@ -1,0 +1,35 @@
+@page "/holidayoverview"
+@using BreakingNomad.Ui.Components.Data
+
+@if (_upcomingWeekends == null)
+{
+  <p><em>Loading...</em></p>
+}
+else
+{
+  <h2>Upcoming Long Weekends</h2>
+  <ul>
+    @foreach (var weekend in _upcomingWeekends)
+    {
+            <li>
+              @weekend.StartDate.ToString("dd/MM") @weekend.StartDate.DayOfWeek  -
+              @weekend.EndDate.ToString("dd/MM") @weekend.EndDate.DayOfWeek  -
+                @weekend.Name (@weekend.RequiresExtraDay)
+            </li>
+    }
+  </ul>
+}
+
+
+@code {
+  private List<HolidayLookup.Weekend>? _upcomingWeekends;
+
+
+  protected override async Task OnInitializedAsync()
+  {
+    var publicHolidays = await NagerDateApi.GetPublicHolidaysAsHolidayRecords("za", DateTime.Now.Year);
+    _upcomingWeekends = new HolidayLookup(publicHolidays).GetUpcomingLongWeekends(DateTime.Now).ToList();
+  }
+
+
+}

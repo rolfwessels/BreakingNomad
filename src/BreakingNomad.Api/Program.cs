@@ -4,8 +4,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication();
-builder.Services.AddSingleton<S3SyncService>();
-builder.Services.AddHostedService<S3SyncService>();
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
@@ -14,17 +12,5 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapGet("/", () =>   $"Welcome to Breaking nomad {System.Reflection.Assembly.GetEntryAssembly()!.GetName().Version}");
-app.MapGet("/sync", async (S3SyncService service,ILogger<Program> logger) =>
-{
-  try
-  {
-    await service.Sync();
-    return "Done";
-  }
-  catch (Exception e)
-  {
-    logger.LogError(e, "Failed to sync {message},", e.Message);
-    return "Nope!";
-  }
-});
+
 app.Run();

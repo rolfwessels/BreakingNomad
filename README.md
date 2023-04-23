@@ -5,13 +5,13 @@
 
 ![breaking nomad](./docs/logo.png "breaking nomad")
 
-# Breaking nomad
+# Breaking Nomad 🏕️
 
-This makes breaking nomad happen
+Breaking Nomad is a mobile app that helps you plan and prepare for your next camping trip. With Breaking Nomad, you can easily create packing lists 🎒, plan your meals 🍴, and get notified of upcoming long weekends 📅.
 
-## Getting started
+## Getting Started 🚀
 
-Open the docker environment to do all development and deployment
+Open the docker environment to do all development and deployment. Run the following in WSL or bash
 
 ```bash
 # bring up dev environment
@@ -19,6 +19,28 @@ make build up
 # build the project ready for publish
 make publish
 ```
+
+## Possible features
+
+- **Long Weekend Calendar** Include a calendar feature that shows upcoming long weekends and public holidays for your location.
+- **Weekend Getaway Suggestions** Provide suggestions for popular weekend getaway destinations, along with accommodation options and prices.
+- **Booking Integration** Integrate with booking platforms such as Booking.com, Airbnb or Expedia to allow users to book their preferred accommodation directly through the app.
+- **Alerts and Reminders** Send push notifications or reminders to users a few weeks before a long weekend to prompt them to start planning their trip and booking accommodation.
+- **Weather Forecast** Include a weather forecast feature for users to check the weather at their destination before booking their trip.
+- **Packing List** Provide a packing list suggestion based on the user's destination, time of year and type of activity they are planning to do.
+- **Social Sharing** Enable users to share their weekend getaway with friends that might like to join.
+- **Meal Planning** Allow users to plan their meals for the trip by creating a menu that includes breakfast, lunch, and dinner options. They can add ingredients to their shopping list, and the app can suggest meals based on the user's dietary preferences.
+- **Grocery List** Create a grocery list feature that will allow users to add food items to their packing list. This will help them to remember everything they need to buy before they leave for their trip.
+- **Recipes** Provide users with a selection of recipes for their weekend getaway that are easy to make and require minimal cooking equipment. Users can select from a list of recipes that fit their dietary needs, and the app can automatically add the necessary ingredients to their grocery list.
+- **Customization** Allow users to customize their meal plan and grocery list based on the number of people going on the trip, their dietary preferences, and any specific food allergies.
+
+## Technologies Used 🔧
+
+- **Blazor WebAssembly**: A .NET web framework that allows us to build web applications using C# instead of JavaScript.
+- **GraphQL**: A query language that enables us to efficiently retrieve data from the server.
+- **Hot Chocolate**: A GraphQL server implementation for .NET.
+- **NUnit**: A unit testing framework for .NET.
+- **Fluent Assertions**: A set of .NET libraries that allow for more natural assertions in tests.
 
 ## Available make commands
 
@@ -28,8 +50,8 @@ make publish
 - `make down` : stops the container
 - `make build` : builds the container
 - `docker-login` : Log into docker
-- `make build` : builds the container
-- `make build` : builds the container
+- `docker-build` : Build the container
+- `docker-push` : Push containers to registry
 
 ### Commands to run inside the container
 
@@ -37,6 +59,10 @@ make publish
 - `make publish` : Build the breaking nomad to build folder
 - `make deploy` : Deploy the breaking nomad
 
+## License 📝
+
+Breaking Nomad is licensed under the MIT License. See LICENSE for more information.
+
 ## Research
 
-- <https://opensource.com/article/18/8/what-how-makefile> What is a Makefile and how does it work?
+- <https://expo.dev/> Make any app. Run it everywhere.

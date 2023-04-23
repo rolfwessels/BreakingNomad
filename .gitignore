@@ -8,5 +8,16 @@ src/**/*.plan
 src/**/bin/
 src/**/obj/
 src/.vs/
+src/**/*.user
+
+tests/**/*.plan
+tests/**/bin/
+tests/**/obj/
+tests/.vs/
+tests/**/*.user
+**/*ncrunch*
+
 docker-compose.yml
+
+
 
