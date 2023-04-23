@@ -36,12 +36,11 @@ make publish
 
 ## Technologies Used 🔧
 
-Breaking Nomad is built using the following technologies:
-
-- React ⚛️
-- Firebase 🔥
-- React Router 🛣️
-- React Bootstrap 🎨
+- **Blazor WebAssembly**: A .NET web framework that allows us to build web applications using C# instead of JavaScript.
+- **GraphQL**: A query language that enables us to efficiently retrieve data from the server.
+- **Hot Chocolate**: A GraphQL server implementation for .NET.
+- **NUnit**: A unit testing framework for .NET.
+- **Fluent Assertions**: A set of .NET libraries that allow for more natural assertions in tests.
 
 ## Available make commands
 
