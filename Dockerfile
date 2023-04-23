@@ -15,14 +15,9 @@ RUN apk update \
 
 # For the project
 RUN apk add --no-cache --update \
-      aws-cli \
       dotnet7-sdk \
-      python3 \
-      py3-pip \
-      curl \
-  && pip3 install --upgrade pip \
-  && pip3 install --no-cache-dir \
-      awscli \
+      busybox-extras\
+      curl \ 
   && rm -rf /var/cache/apk/*
 RUN git config --global --add safe.directory /breaking-nomad
 
