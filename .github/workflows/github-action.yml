@@ -31,5 +31,15 @@ jobs:
           dotnet-version: '7.0.x'
       - name: build
         run: make publish
-      
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: './dist/BreakingNomad.Ui'
+          name: github-pages
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+         
       
