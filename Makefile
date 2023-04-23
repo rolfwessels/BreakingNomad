@@ -26,7 +26,7 @@ endif
 ifeq ($(current-branch), main)
 	docker-tags := -t $(registry):alpha -t $(registry):latest -t $(registry):v$(version) -t $(registry):$(shorthash)
 else
-	version := $(versionPrefix).$(shell git rev-list main --count).$(shell git rev-list main..HEAD --count)
+	version := $(versionPrefix).$(shell git rev-list origin/main --count).$(shell git rev-list origin/main..HEAD --count)
 	version-suffix := alpha
 	docker-tags := -t $(registry):$(version-suffix) -t $(registry):$(shorthash) -t $(registry):v$(version)-$(version-suffix)
 endif
@@ -77,7 +77,7 @@ publish:
 	@echo -e "Ready to build ${GREEN}$(version)-$(version-suffix)${NC}"
 	@dotnet publish src/BreakingNomad.Ui/BreakingNomad.Ui.csproj -p:PublishTrimmed=true -p:DebugType=None -p:DebugSymbols=false -p:VersionSuffix=$(version-suffix)  -p:FileVersion=$(version) -p:VersionPrefix=$(version) --output ./dist/BreakingNomad.Ui/$(release)
 
-test: docker-check
+test:
 	@echo -e "${GREEN}Testing v${version} of release${NC}"
 	@cd src && dotnet test --filter TestCategory!=SkipOnCi
 
