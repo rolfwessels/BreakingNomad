@@ -38,24 +38,26 @@ endif
 
 # Targets
 help:
-	@echo "The following commands can be used for building & running & deploying the the $(project) container"
-	@echo "---------------------------------------------------------------------------------------------"
-	@echo ""
-	@echo "Make options when not in container"
-	@echo "   - ${GREEN}docker-login${NC} : Authenticate docker with ecr"
-	@echo "   - ${GREEN}docker-build${NC} : Build the container"
-	@echo "   - ${GREEN}docker-push${NC}  : Push containers to registry"
-	@echo "   - up          : brings up the container & attach to the default container ($(container))"
-	@echo "   - down        : stops the container"
-	@echo "   - build       : (re)builds the container"
-	@echo ""
-	@echo "Options in the contain"
-	@echo "   - ${GREEN}start${NC}  	  : Run the app in the container"
-	@echo ""
-	@echo ""
-	@echo "Examples:"
-	@echo " - Just build containers    : make docker-build"
-	@echo " - Everything               : make docker-login docker-build docker-push"
+	@echo -e "The following commands can be used for building & running & deploying the the $(project) container"
+	@echo -e "---------------------------------------------------------------------------------------------"
+	@echo -e ""
+	@echo -e "Make options when not in container"
+	@echo -e "   - ${GREEN}docker-login${NC} : Authenticate docker with ecr"
+	@echo -e "   - ${GREEN}docker-build${NC} : Build the container"
+	@echo -e "   - ${GREEN}docker-push${NC}  : Push containers to registry"
+	@echo -e "   - up          : brings up the container & attach to the default container ($(container))"
+	@echo -e "   - down        : stops the container"
+	@echo -e "   - build       : (re)builds the container"
+	@echo -e ""
+	@echo -e "Options in the contain"
+	@echo -e "   - ${GREEN}start${NC}  	  : Run the app in the container"
+	@echo -e "   - ${GREEN}test${NC}         : Test the $(project) service"
+	@echo -e "   - ${GREEN}publish${NC}      : Publish ui to dist folder"
+	@echo -e ""
+	@echo -e ""
+	@echo -e "Examples:"
+	@echo -e " - Just build containers    : make docker-build"
+	@echo -e " - Everything               : make docker-login docker-build docker-push"
 
 
 docker-login: 
@@ -71,16 +73,22 @@ docker-push:
 	@docker push --all-tags $(registry)
 	@docker images | grep "$(registry)" | awk '{system("docker rmi " "'"$(registry):"'" $$2)}'
 
+publish: 
+	@echo -e "Ready to build ${GREEN}$(version)-$(version-suffix)${NC}"
+	@dotnet publish src/BreakingNomad.Ui/BreakingNomad.Ui.csproj -p:PublishTrimmed=true -p:DebugType=None -p:DebugSymbols=false -p:VersionSuffix=$(version-suffix)  -p:FileVersion=$(version) -p:VersionPrefix=$(version) --output ./dist/BreakingNomad.Ui/$(release)
+
+test: docker-check
+	@echo -e "${GREEN}Testing v${version} of release${NC}"
+	@cd src && dotnet test --filter TestCategory!=SkipOnCi
+
+serve: 
+	@echo -e "Serving ${GREEN}$(version)-$(version-suffix)${NC} on http://localhost:5203"
+	@cd dist/BreakingNomad.Ui/wwwroot/ && httpd -f -p 5203
+	
 up:
-	@echo "Checking for $(HOME)/.aws ..."
-ifeq ("$(wildcard $(HOME)/.aws)","")
-	@echo "Creating $(HOME)/.aws"
-	@mkdir $(HOME)/.aws 
-endif
 	@echo "Starting containers..."
 	@docker-compose up -d
 	@echo "Attaching shell..."
-	@rsync -rup --copy-links ~/.aws .
 	@docker-compose exec $(container) bash
 
 down:

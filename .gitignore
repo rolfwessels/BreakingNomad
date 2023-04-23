@@ -17,6 +17,8 @@ tests/.vs/
 tests/**/*.user
 **/*ncrunch*
 
+/dist
+
 docker-compose.yml
 
 

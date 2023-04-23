@@ -16,6 +16,8 @@ Open the docker environment to do all development and deployment. Run the follow
 ```bash
 # bring up dev environment
 make build up
+# test the project
+make test
 # build the project ready for publish
 make publish
 ```
@@ -57,6 +59,7 @@ make publish
 
 - `make start` : Run the breaking nomad
 - `make publish` : Build the breaking nomad to build folder
+- `make test` : Build the breaking nomad to build folder
 - `make deploy` : Deploy the breaking nomad
 
 ## License 📝
