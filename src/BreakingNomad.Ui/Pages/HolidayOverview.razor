@@ -1,23 +1,33 @@
 @page "/holidayoverview"
 @using BreakingNomad.Ui.Components.Data
 
+<h2>Upcoming Long Weekends</h2>
+
 @if (_upcomingWeekends == null)
 {
-  <p><em>Loading...</em></p>
+  <p>
+    <em>Loading...</em>
+  </p>
 }
 else
-{
-  <h2>Upcoming Long Weekends</h2>
-  <ul>
+{ 
+  <div class="row mt-4">
+
     @foreach (var weekend in _upcomingWeekends)
     {
-            <li>
-              @weekend.StartDate.ToString("dd/MM") @weekend.StartDate.DayOfWeek  -
-              @weekend.EndDate.ToString("dd/MM") @weekend.EndDate.DayOfWeek  -
-                @weekend.Name (@weekend.RequiresExtraDay)
-            </li>
+      <div class="col-sm-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">@weekend.Name</h5>
+                        <p class="card-text">@weekend.StartDate.ToString("dddd dd/MMM") - @weekend.EndDate.ToString("dddd dd/MMM") @weekend.Days days</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
     }
-  </ul>
+
+  </div>
+  
 }
 
 
