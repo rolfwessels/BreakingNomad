@@ -1,0 +1,93 @@
+@page "/menupicker/{id}/update"
+@using BreakingNomad.Ui.Components.MenuMaker
+@using BreakingNomad.Ui.Components.MenuMaker.Models
+@using BreakingNomad.Ui.Components
+@inject IMenuLookup MenuLookup
+
+<h2>Planning for up coming meals</h2>
+
+@if (_trip == null)
+{
+  <p>
+    <em>Loading...</em>
+  </p>
+}
+else
+{
+  <div class="row mt-4">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Trip Details</h5>
+                @_trip.Name
+      </div>
+      <div class="card-body">
+        <form >
+          <div>
+            <label for="startDate">Start Date</label>
+            <input type="date" class="form-control" id="startDate" @bind="_trip.StartDate" required>
+          </div>
+          <div>
+            <label for="endDate">End Date</label>
+            <input type="date" class="form-control" id="endDate" @bind="_trip.EndDate" required>
+          </div>
+          <div>
+            <label for="peopleCount">Number of People</label>
+            <input type="number" class="form-control" id="peopleCount" @bind="_trip.People" required>
+          </div>
+          <button type="button" @onclick="OnClick" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card mt-4">
+      <div class="card-header">
+        <h5 class="card-title">Meal Schedule</h5>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Date</th>
+            <th>Breakfast</th>
+            <th>Lunch</th>
+            <th>Dinner</th>
+            <th>Snacks</th>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach (var day in _trip.DayMeals)
+          {
+            <tr>
+              <td>@day.Day.ToString(FormattingConstants.DateAndDay)</td>
+              <td>@day.Breakfast?.Name</td>
+              <td>@day.Lunch?.Name</td>
+              <td>@day.Dinner?.Name</td>
+              <td>@day.Snacks?.Name</td>
+            </tr>
+          }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+}
+
+
+@code {
+  private TripMenu? _trip;
+
+  [Parameter]
+  public string? Id { get; set; }
+
+  protected override async Task OnInitializedAsync()
+  {
+    _trip = (await MenuLookup.GetUpComingTrip()).FirstOrDefault(x => x.Id == Id);
+  }
+  
+
+  private void OnClick()
+  {
+        _trip?.Calculate();
+    }
+
+}
