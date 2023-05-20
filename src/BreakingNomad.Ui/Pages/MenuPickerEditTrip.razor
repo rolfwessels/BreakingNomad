@@ -2,6 +2,7 @@
 @using BreakingNomad.Ui.Components.MenuMaker
 @using BreakingNomad.Ui.Components.MenuMaker.Models
 @using BreakingNomad.Ui.Components
+
 @inject IMenuLookup MenuLookup
 
 <h2>Planning for up coming meals</h2>
@@ -18,7 +19,7 @@ else
     <div class="card">
       <div class="card-header">
         <h5 class="card-title">Trip Details</h5>
-                @_trip.Name
+        @_trip.Name
       </div>
       <div class="card-body">
         <form >
@@ -34,7 +35,7 @@ else
             <label for="peopleCount">Number of People</label>
             <input type="number" class="form-control" id="peopleCount" @bind="_trip.People" required>
           </div>
-          <button type="button" @onclick="OnClick" class="btn btn-primary">Submit</button>
+          <button type="button" @onclick="() => OnClick()" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>
@@ -47,22 +48,30 @@ else
         <table class="table table-striped">
           <thead>
           <tr>
-            <th>Date</th>
-            <th>Breakfast</th>
-            <th>Lunch</th>
-            <th>Dinner</th>
-            <th>Snacks</th>
+            <th style="width: 10%">Date</th>
+            <th style="width: 20%">Breakfast</th>
+            <th style="width: 20%">Lunch</th>
+            <th style="width: 20%">Snacks</th>
+            <th style="width: 20%">Dinner</th>
           </tr>
           </thead>
           <tbody>
           @foreach (var day in _trip.DayMeals)
           {
             <tr>
-              <td>@day.Day.ToString(FormattingConstants.DateAndDay)</td>
-              <td>@day.Breakfast?.Name</td>
-              <td>@day.Lunch?.Name</td>
-              <td>@day.Dinner?.Name</td>
-              <td>@day.Snacks?.Name</td>
+              <td >@day.Day.ToString(FormattingConstants.DateAndDay)</td>
+              <td>
+                <ItemPicker AllowedItems="_allowedValues" MealType="@Meal.Breakfast" SelectedItems="Lists(day.Breakfast)"></ItemPicker>
+              </td>
+              <td>
+                <ItemPicker AllowedItems="_allowedValues" MealType="@Meal.Lunch" SelectedItems="Lists(day.Lunch)"></ItemPicker>
+              </td>
+              <td>
+                <ItemPicker AllowedItems="_allowedValues" MealType="@Meal.Lunch" SelectedItems="Lists(day.Snacks)"></ItemPicker>
+              </td>
+              <td>
+                <ItemPicker AllowedItems="_allowedValues" MealType="@Meal.Dinner" SelectedItems="Lists(day.Dinner)"></ItemPicker>
+              </td>
             </tr>
           }
           </tbody>
@@ -75,6 +84,7 @@ else
 
 @code {
   private TripMenu? _trip;
+  private List<Recipy>? _allowedValues;
 
   [Parameter]
   public string? Id { get; set; }
@@ -82,12 +92,21 @@ else
   protected override async Task OnInitializedAsync()
   {
     _trip = (await MenuLookup.GetUpComingTrip()).FirstOrDefault(x => x.Id == Id);
+    _allowedValues = _trip?.AllRecipies.ToList();
   }
-  
+
 
   private void OnClick()
   {
-        _trip?.Calculate();
-    }
+    _trip?.Calculate();
+  }
+
+
+  private List<Recipy> Lists(Recipy? recipe)
+  {
+    var stringList = new List<Recipy>();
+    if (recipe != null) stringList.Add(recipe);
+    return stringList;
+  }
 
 }

@@ -9,6 +9,7 @@ public class DayMeal
   public Recipy? Snacks;
   public Recipy? Dinner;
   public Recipy? Dessert;
+  public List<string> Sample { get; set; } = new List<string>() { "Hi" };
 
   public static DayMeal From(int day, DateTime startDate, DateTime endDate, List<Recipy> allRecipies)
   {
