@@ -4,15 +4,19 @@ namespace BreakingNomad.Ui.Components.MenuMaker.Models;
 
 public class TripMenu
 {
-  public List<Recipy> AllRecipies = new();
+  public string Id { get; set; } = null!;
+  public List<Recipy> AllRecipes = new();
   public List<DayMeal> DayMeals = new();
-  
+
   public List<SimpleRoundedItem> DrinkOptions = new();
   public DateTime EndDate = DateTime.Now.AddDays(3);
-  public int People = 1;
+
+  public int People { get; set; } = 1;
+
   public List<ShoppingListItem> ShoppingListItem = new();
   public DateTime StartDate = DateTime.Now.AddDays(1);
   private string? _name;
+
 
   public string Name
   {
@@ -21,16 +25,15 @@ public class TripMenu
   }
 
   public int Days => (int)Math.Ceiling((EndDate - StartDate).TotalDays);
-  public string Id { get; set; }
 
   public void AddDrinks(string name, decimal unitValue, string unit)
   {
     DrinkOptions.Add(new SimpleRoundedItem(name, unitValue, unit));
   }
 
-  public void AddMealOption(Recipy recipy)
+  public void AddMealOption(Recipy recipe)
   {
-    AllRecipies.Add(recipy);
+    AllRecipes.Add(recipe);
   }
 
   public static TripMenu From(string id, DateTime startDate, DateTime endDate, int people = 1)
@@ -46,13 +49,13 @@ public class TripMenu
 
   public void Calculate()
   {
-    AllRecipies.ForEach(x => x.MarkUsed(false));
+    AllRecipes.ForEach(x => x.MarkUsed(false));
     DayMeals.Clear();
     DayMeals.AddRange(Enumerable.Range(1, Days + 1)
-      .Select(day => DayMeal.From(day, StartDate, EndDate, AllRecipies)));
+      .Select(day => DayMeal.From(day, StartDate, EndDate, AllRecipes)));
 
     ShoppingListItem.Clear();
-    ShoppingListItem.AddRange(AllRecipies
+    ShoppingListItem.AddRange(AllRecipes
       .SelectMany(x => x.Items.Select(r => new { meal = x.Meal, dr = r.Times(x.Used * People) }))
       .GroupBy(g => new { name = g.dr.Name, unit = g.dr.Unit, inUnit = g.dr.InUnit })
       .Select(x => new ShoppingListItem(x.First().meal.ToString(), x.Key.name,
@@ -80,6 +83,6 @@ public class TripMenu
       Dessert = x.Dessert?.Name
     }).Dump("Menu");
     ShoppingListItem.Dump("Shopping");
-    AllRecipies.Dump("Recipies");
+    AllRecipes.Dump("Recipies");
   }
 }

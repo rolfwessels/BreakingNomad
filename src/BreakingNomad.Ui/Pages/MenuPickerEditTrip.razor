@@ -1,4 +1,5 @@
 @page "/menupicker/{id}/update"
+@using Bumbershoot.Utilities.Helpers
 @using BreakingNomad.Ui.Components.MenuMaker
 @using BreakingNomad.Ui.Components.MenuMaker.Models
 @using BreakingNomad.Ui.Components
@@ -22,20 +23,19 @@ else
         @_trip.Name
       </div>
       <div class="card-body">
-        <form >
+        <form @onsubmit="DelayRefresh">
           <div>
             <label for="startDate">Start Date</label>
-            <input type="date" class="form-control" id="startDate" @bind="_trip.StartDate" required>
+            <input type="date" class="form-control" id="startDate" @bind="StartDate" required>
           </div>
           <div>
             <label for="endDate">End Date</label>
-            <input type="date" class="form-control" id="endDate" @bind="_trip.EndDate" required>
+            <input type="date" class="form-control" id="endDate" @bind="EndDate" required>
           </div>
           <div>
             <label for="peopleCount">Number of People</label>
-            <input type="number" class="form-control" id="peopleCount" @bind="_trip.People" required>
+            <input type="number" class="form-control" id="peopleCount" @bind="People" required>
           </div>
-          <button type="button" @onclick="() => OnClick()" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>
@@ -78,35 +78,86 @@ else
         </table>
       </div>
     </div>
+    @if (_shoppingList != null)
+    {
+      <div class="card mt-4">
+        <div class="card-header">
+          <h5 class="card-title">Shopping list</h5>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th style="width: 20%">Description</th>
+              <th style="width: 20%">Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in _shoppingList)
+            {
+              <tr>
+                <td>@item.Category</td>
+                <td>@item.Name</td>
+                <td>@item.UnitValue @item.Unit</td>
+                
+              </tr>
+            }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
   </div>
 }
 
 
 @code {
-  private TripMenu? _trip;
-  private List<Recipy>? _allowedValues;
-
-  [Parameter]
-  public string? Id { get; set; }
-
-  protected override async Task OnInitializedAsync()
-  {
-    _trip = (await MenuLookup.GetUpComingTrip()).FirstOrDefault(x => x.Id == Id);
-    _allowedValues = _trip?.AllRecipies.ToList();
-  }
+    private TripMenu? _trip;
+    private List<Recipy>? _allowedValues;
+    private List<ShoppingListItem>? _shoppingList;
 
 
-  private void OnClick()
-  {
-    _trip?.Calculate();
-  }
+    [Parameter]
+    public string? Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _trip = (await MenuLookup.GetUpComingTrip()).FirstOrDefault(x => x.Id == Id);
+        _allowedValues = _trip?.AllRecipes.ToList();
+        _shoppingList = _trip?.ShoppingListItem.ToList();
+    }
 
 
-  private List<Recipy> Lists(Recipy? recipe)
-  {
-    var stringList = new List<Recipy>();
-    if (recipe != null) stringList.Add(recipe);
-    return stringList;
-  }
+    private List<Recipy> Lists(Recipy? recipe)
+    {
+        var stringList = new List<Recipy>();
+        if (recipe != null) stringList.Add(recipe);
+        return stringList;
+    }
+
+    private void DelayRefresh()
+    {
+      _trip?.Calculate();
+      _allowedValues = _trip?.AllRecipes.ToList();
+      _shoppingList = _trip?.ShoppingListItem.ToList();
+    }
+
+    public DateTime? StartDate
+    {
+        get => _trip?.StartDate;
+        set { value?.With(x => _trip!.StartDate = x); DelayRefresh(); }
+    }
+
+    public DateTime? EndDate
+    {
+        get => _trip?.EndDate;
+        set { value?.With(x => _trip!.EndDate = x); DelayRefresh(); }
+    }
+
+    public int People
+    {
+        get => _trip?.People??1;
+        set {_trip!.People = value; DelayRefresh(); }
+        }
 
 }
