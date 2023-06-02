@@ -1,5 +1,5 @@
-@using BreakingNomad.Ui.Components.MenuMaker.Models
 @using BreakingNomad.Ui.Components
+@using BreakingNomad.Ui.Components.MenuMaker.Models
 @inject IJSRuntime JsRuntime
 
 <div >
@@ -20,13 +20,14 @@
   <ItemPickerModal @ref="Modal">
     <Title>Please select a meal</Title>
     <Body>
-    
-    @foreach (var tag in AllowedItems.Where(x=>!SelectedItems.Contains(x)).OrderByDescending(x => x.MealType == MealType).ThenBy(x => x.MealType).ThenBy(x => x.Name))
+
+    @foreach (var tag in AllowedItems.Where(x => !SelectedItems.Contains(x)).OrderByDescending(x => x.MealType == MealType).ThenBy(x => x.MealType).ThenBy(x => x.Name))
     {
-      <a @onclick="()=>AddToList(tag)"><span class="badge bg-secondary mx-3" style="background-color: @ToColor(tag)">
-        @tag.Name
-                    </span>
-                </a>
+      <a @onclick="() => AddToList(tag)">
+        <span class="badge bg-secondary mx-3" style="background-color: @ToColor(tag)">
+          @tag.Name
+        </span>
+      </a>
     }
     </Body>
     <Footer>
@@ -38,43 +39,43 @@
 
 @code {
 
-    private ItemPickerModal? Modal { get; set; }
+  private ItemPickerModal? Modal { get; set; }
 
-    [Parameter]
-    public List<Recipy> SelectedItems { get; set; } = new();
+  [Parameter]
+  public List<MealRecipe> SelectedItems { get; set; } = new();
 
-    [Parameter]
-    public List<Recipy> AllowedItems { get; set; } = new();
+  [Parameter]
+  public List<MealRecipe> AllowedItems { get; set; } = new();
 
-    [Parameter]
-    public MealType? MealType { get; set; }
+  [Parameter]
+  public MealType? MealType { get; set; }
 
-    public bool _isListHidden = true;
+  public bool _isListHidden = true;
 
-    private void RemoveItem(Recipy tag)
-    {
-        SelectedItems.Remove(tag);
-    }
+  private void RemoveItem(MealRecipe tag)
+  {
+    SelectedItems.Remove(tag);
+  }
 
-    private string ToColor(Recipy tag)
-    {
-      return tag.MealType.ToColor();
-    }
+  private string ToColor(MealRecipe tag)
+  {
+    return tag.MealType.ToColor();
+  }
 
   private void Add()
-    {
-        Modal?.Open();
-    }
+  {
+    Modal?.Open();
+  }
 
-    private void CloseModal()
-    {
-        Modal?.Close();
-    }
+  private void CloseModal()
+  {
+    Modal?.Close();
+  }
 
-    private void AddToList(Recipy tag)
-    {
-        SelectedItems.Add(tag);
-        Modal?.Close();
-    }
+  private void AddToList(MealRecipe tag)
+  {
+    SelectedItems.Add(tag);
+    Modal?.Close();
+  }
 
 }

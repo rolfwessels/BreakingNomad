@@ -60,13 +60,13 @@ else
             <tr>
               <td >@day.Day.ToString(FormattingConstants.DateAndDay)</td>
               <td>
-                <ItemPicker AllowedItems="_allowedValues" MealType="@MealType.Breakfast" SelectedItems="Lists(day.Breakfast)"></ItemPicker>
+                <ItemPicker AllowedItems="_allowedValues" MealType="@MealType.Breakfast" SelectedItems="day.Breakfast"></ItemPicker>
               </td>
               <td>
-                <ItemPicker AllowedItems="_allowedValues" MealType="@MealType.Lunch" SelectedItems="Lists(day.Lunch)"></ItemPicker>
+                <ItemPicker AllowedItems="_allowedValues" MealType="@MealType.Lunch" SelectedItems="day.Lunch"></ItemPicker>
               </td>
               <td>
-                <ItemPicker AllowedItems="_allowedValues" MealType="@MealType.Dinner" SelectedItems="Lists(day.Dinner)"></ItemPicker>
+                <ItemPicker AllowedItems="_allowedValues" MealType="@MealType.Dinner" SelectedItems="day.Dinner"></ItemPicker>
               </td>
             </tr>
           }
@@ -109,7 +109,7 @@ else
 
 @code {
     private TripMenu? _trip;
-    private List<Recipy>? _allowedValues;
+    private List<MealRecipe>? _allowedValues;
     private List<ShoppingListItem>? _shoppingList;
 
 
@@ -119,22 +119,21 @@ else
     protected override async Task OnInitializedAsync()
     {
         _trip = (await MenuLookup.GetUpComingTrip()).FirstOrDefault(x => x.Id == Id);
-        _allowedValues = _trip?.AllRecipes.ToList();
+        _allowedValues = MenuLookup.GetMeals();
         _shoppingList = _trip?.ShoppingListItem.ToList();
     }
 
 
-    private List<Recipy> Lists(Recipy? recipe)
+  private List<MealRecipe> Lists(MealRecipe? recipe)
     {
-        var stringList = new List<Recipy>();
-        if (recipe != null) stringList.Add(recipe);
+    var stringList = new List<MealRecipe>();
+    if (recipe != null) stringList.Add(recipe);
         return stringList;
     }
 
     private void DelayRefresh()
     {
       _trip?.Calculate();
-      _allowedValues = _trip?.AllRecipes.ToList();
       _shoppingList = _trip?.ShoppingListItem.ToList();
     }
 

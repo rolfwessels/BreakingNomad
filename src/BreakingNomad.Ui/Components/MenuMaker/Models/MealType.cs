@@ -5,7 +5,8 @@ public enum MealType
   Breakfast,
   Lunch,
   Dinner,
-  Side
+  Side,
+  Dessert
 }
 
 public enum FoodCategory

@@ -1,204 +1,203 @@
-﻿namespace BreakingNomad.Ui.Components.MenuMaker.Models;
+using BreakingNomad.Ui.Helpers;
+
+namespace BreakingNomad.Ui.Components.MenuMaker.Models;
 
 public class Dinner
 {
-  public static Recipy ChickenEspetada = new()
-  {
-    Name = "Chicken Espetada",
-    MealType = MealType.Dinner,
-    Items =
+  public static MealRecipe ChickenEspetada = new MealRecipe(
+     MealType.Dinner,
+    "Chicken Espetada",
+    
+    new []
     {
-      new SimpleRoundedItem("Chicken Espetada", 0.5m, "pack")
+      BasicIngredients.From("Chicken Espetada", 0.5m, "pack")
     }
-  };
+  );
 
-  public static Recipy Salmon = new()
-  {
-    Name = "Salmon",
-    MealType = MealType.Dinner,
-    Items =
+  public static MealRecipe Salmon = new MealRecipe(
+     MealType.Dinner,
+    "Salmon",
+    
+    new []
     {
-      new SimpleRoundedItem("Salmon", 200, "grams")
+      BasicIngredients.From("Salmon", 200, "gram")
     }
-  };
+  );
 
-  public static Recipy PortFillet = new()
-  {
-    Name = "Port Fillet",
-    MealType = MealType.Dinner,
-    Items =
+  public static MealRecipe PortFillet = new MealRecipe(
+     MealType.Dinner,
+    "Port Fillet",
+    
+    new []
     {
-      new SimpleRoundedItem("Port Fillet", 200, "grams")
+      BasicIngredients.From("Port Fillet", 200, "gram")
     }
-  };
+  );
 
-  public static Recipy RoastChicken = new()
-  {
-    Name = "Roast chicken",
-    MealType = MealType.Dinner,
-    Items =
+  public static MealRecipe RoastChicken = new MealRecipe(
+     MealType.Dinner,
+    "Roast chicken",
+    
+    new []
     {
-      new SimpleRoundedItem("Chicken", 1, "half chicken")
+      BasicIngredients.From("Chicken", 0.5m, "unit")
     }
-  };
+  );
 
-  public static Recipy Fillet = new()
-  {
-    Name = "Fillet",
-    MealType = MealType.Dinner,
-    Items =
+  public static MealRecipe Fillet = new MealRecipe(
+     MealType.Dinner,
+    "Fillet",
+    
+    new []
     {
-      new SimpleRoundedItem("Fillet", 250, "grams")
+      BasicIngredients.From("Fillet", 250, "gram")
     }
-  };
+  );
 
-  public static Recipy Wors = new()
-  {
-    Name = "Wors",
-    MealType = MealType.Dinner,
-    Items =
+  public static MealRecipe Wors = new MealRecipe(
+     MealType.Dinner,
+    "Wors",
+    
+    new []
     {
-      new SimpleRoundedItem("Wors", 250, "grams")
+      BasicIngredients.From("Wors", 250, "gram")
     }
-  };
+  );
 
 
-  public static Recipy AppricotPork = new()
-  {
-    Name = "Appricot Pork",
-    MealType = MealType.Dinner,
-    Items =
+  public static MealRecipe AppricotPork = new MealRecipe(
+     MealType.Dinner,
+    "Appricot Pork",
+    
+    new []
     {
-      new SimpleRoundedItem("Pork", 200, "grams"),
-      new SimpleRoundedItem("Appricot-Jam", 0.15m, "tin"),
-      new SimpleRoundedItem("Mayo", 0.10m, "bottle"),
-      new SimpleRoundedItem("Onion", 0.15m, "Onion"),
-      new SimpleRoundedItem("Garlic", 0.1m, "Garlic"),
-      new SimpleRoundedItem("Chutney", 0.15m, "bottle")
+      BasicIngredients.From("Pork", 200, "gram"),
+      BasicIngredients.From("Appricot-Jam", 0.15m, "tin"),
+      BasicIngredients.From("Mayo", 0.10m, "bottle"),
+      BasicIngredients.From("Onion", 0.15m, "unit"),
+      BasicIngredients.From("Garlic", 0.1m, "unit"),
+      BasicIngredients.From("Chutney", 0.15m, "bottle")
     }
-  };
+  );
 
-  public static Recipy Tuna = new()
-  {
-    Name = "Tuna",
-    MealType = MealType.Dinner,
-    Items =
+  public static MealRecipe Tuna = new MealRecipe(
+     MealType.Dinner,
+    "Tuna",
+    
+    new []
     {
-      new SimpleRoundedItem("Tuna", 200, "grams")
+      BasicIngredients.From("Tuna", 200, "gram")
     }
-  };
+  );
 
 
-  public static Recipy PorkBelly = new()
-  {
-    Name = "Pork Belly",
-    MealType = MealType.Dinner,
-    Items =
+  public static MealRecipe PorkBelly = new MealRecipe(
+     MealType.Dinner,
+    "Pork Belly",
+    
+    new []
     {
-      new SimpleRoundedItem("Pork Belly", 250, "grams")
+      BasicIngredients.From("Pork Belly", 250, "gram")
     }
-  };
+  );
 
-  public static Recipy Burgers = new()
-  {
-    Name = "Burgers",
-    MealType = MealType.Dinner,
-    Items =
+  public static MealRecipe Burgers = new MealRecipe(
+     MealType.Dinner,
+    "Burgers",
+    
+    new []
     {
-      new SimpleRoundedItem("Burgers Patty", 250, "grams"),
-      new SimpleRoundedItem("Burger Bun", 1, "Bun"),
-      BasicItems.Cheese(),
-      BasicItems.SaladLeaves(),
-      BasicItems.Tomato(0.3m)
+      BasicIngredients.From("Burgers Patty", 250, "gram"),
+      BasicIngredients.From("Burger Bun", 1, "unit"),
+      BasicIngredients.Cheese(),
+      BasicIngredients.SaladLeaves(),
+      BasicIngredients.Tomato(0.3m)
     }
-  };
+  );
 
-  public static Recipy ApricotChicken = new()
-  {
-    Name = "Apricot chicken",
-    MealType = MealType.Dinner,
-    Items =
+  public static MealRecipe ApricotChicken = new MealRecipe(
+     MealType.Dinner,
+    "Apricot chicken",
+    
+    new []
     {
-      new SimpleRoundedItem("Chicken With Skin", 200, "grams"),
-      new SimpleRoundedItem("Mayo", 0.10m, "bottle"),
-      new SimpleRoundedItem("Apricot Yam", 124, "ml"),
-      new SimpleRoundedItem("Garlic", 1, "table spoon"),
-      new SimpleRoundedItem("Onion", 0.25m, "onion"),
-      new SimpleRoundedItem("Peri Peri", 0.10m, "bottle"),
-      new SimpleRoundedItem("Worcestor Sauce", 0.10m, "bottle")
+      BasicIngredients.From("Chicken With Skin", 200, "gram"),
+      BasicIngredients.From("Mayo", 0.10m, "bottle"),
+      BasicIngredients.From("Apricot Yam", 124, "ml"),
+      BasicIngredients.From("Garlic", 1, "unit"),
+      BasicIngredients.From("Onion", 0.25m, "unit"),
+      BasicIngredients.From("Peri Peri", 0.10m, "bottle"),
+      BasicIngredients.From("Worcestor Sauce", 0.10m, "bottle")
     }
-  };
+  );
 
-  public static Recipy ChickenBurger = new()
-  {
-    Name = "Chicken Burgers",
-    MealType = MealType.Dinner,
-    Items =
+  public static MealRecipe ChickenBurger = new MealRecipe(
+     MealType.Dinner,
+    "Chicken Burgers",
+    
+    new []
     {
-      new SimpleRoundedItem("Chicken breasts", 250, "grams"),
-      BasicItems.Flour(0.1m),
-      new SimpleRoundedItem("Lightly salted chips", 100, "grams"),
-      BasicItems.Eggs(),
+      BasicIngredients.From("Chicken breasts", 250, "gram"),
+      BasicIngredients.Flour(100m),
+      BasicIngredients.From("Lightly salted chips", 100, "gram"),
+      BasicIngredients.Eggs(),
 
-      new SimpleRoundedItem("Burger bread", 1, "Bun"),
-      new SimpleRoundedItem("Tin of pineapple", 0.2m, "can"),
-      new SimpleRoundedItem("Mayo", 0.10m, "bottle"),
-      new SimpleRoundedItem("PeriPeri", 50, "ml"),
-      BasicItems.Cheese(),
-      BasicItems.SaladLeaves(),
-      BasicItems.Tomato(0.3m)
+      BasicIngredients.From("Burger bread", 1, "unit"),
+      BasicIngredients.From("Tin of pineapple", 0.2m, "tin"),
+      BasicIngredients.From("Mayo", 0.10m, "bottle"),
+      BasicIngredients.From("PeriPeri", 50, "ml"),
+      BasicIngredients.Cheese(),
+      BasicIngredients.SaladLeaves(),
+      BasicIngredients.Tomato(0.3m)
     }
-  };
+  );
 
 
-  public static Recipy Steak = new()
-  {
-    Name = "Steak + Mushroom sauce",
-    MealType = MealType.Dinner,
-    Items =
+  public static MealRecipe Steak = new MealRecipe(
+     MealType.Dinner,
+    "Steak + Mushroom sauce",
+    
+    new []
     {
-      new SimpleRoundedItem("Beef Steak", 250, "grams"),
-      new SimpleRoundedItem("Mushroom sauce", 100, "ml")
+      BasicIngredients.From("Beef Steak", 250, "gram"),
+      BasicIngredients.From("Mushroom sauce", 100, "ml")
     }
-  };
+  );
 
-  public static Recipy Bread = new()
-  {
-    Name = "Bread",
-    MealType = MealType.Dinner,
-    Items =
+  public static MealRecipe Bread = new MealRecipe(
+     MealType.Dinner,
+    "Bread",
+    
+    new []
     {
-      BasicItems.Flour(),
-      BasicItems.Yeast(),
-      BasicItems.Salt(),
-      BasicItems.Sugar()
+      BasicIngredients.Flour(),
+      BasicIngredients.Yeast(),
+      BasicIngredients.Salt(),
+      BasicIngredients.Sugar()
     }
-  };
+  );
 
 
-  public static Recipy Pizza = new()
-  {
-    Name = "Pizza",
-    MealType = MealType.Dinner,
-    Items =
+  public static MealRecipe Pizza = new MealRecipe(
+     MealType.Dinner,
+    "Pizza",
+    
+    new []
     {
-      new SimpleRoundedItem("Tomatoe paste", 0.2m, "small can"),
-      new SimpleRoundedItem("Tin of pineapple", 0.5m, "can"),
-      BasicItems.Cheese(100),
-      BasicItems.Ham(100),
-      BasicItems.Flour(),
-      BasicItems.Yeast(),
-      BasicItems.Salt(),
-      BasicItems.Sugar()
+      BasicIngredients.From("Tomatoe paste", 1, "Sachets"),
+      BasicIngredients.From("Tin of pineapple", 0.5m, "tin"),
+      BasicIngredients.Cheese(100),
+      BasicIngredients.Ham(100),
+      BasicIngredients.Flour(),
+      BasicIngredients.Yeast(),
+      BasicIngredients.Salt(),
+      BasicIngredients.Sugar()
     }
-  };
+  );
 
-  public static Recipy Catered(string name)
+
+  public static IEnumerable<MealRecipe> All()
   {
-    return new Recipy
-    {
-      Name = "C-" + name,
-      MealType = MealType.Dinner
-    };
+    return typeof(Dinner).GetStaticProperties<MealRecipe>();
   }
 }

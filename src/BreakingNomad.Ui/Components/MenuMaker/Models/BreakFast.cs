@@ -1,3 +1,5 @@
+using BreakingNomad.Ui.Helpers;
+
 namespace BreakingNomad.Ui.Components.MenuMaker.Models;
 
 public class BreakFast
@@ -54,14 +56,6 @@ public class BreakFast
 
   public static IEnumerable<MealRecipe> All()
   {
-    yield return FrenchToast;
-    yield return Rusks;
-    yield return FruitSalad;
-    yield return Rusks;
-    yield return Cereal;
-    yield return Rusks;
-    yield return Cereal;
-    yield return BaconEggs;
-    yield return Omelette;
+    return typeof(BreakFast).GetStaticProperties<MealRecipe>();
   }
 }

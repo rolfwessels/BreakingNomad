@@ -3,11 +3,11 @@ namespace BreakingNomad.Ui.Components.MenuMaker.Models;
 public class DayMeal
 {
   public DateTime Day;
-  public Recipy? Breakfast;
-  public Recipy? Lunch;
-  public Recipy? Dinner;
+  public List<MealRecipe> Breakfast;
+  public List<MealRecipe> Lunch;
+  public List<MealRecipe> Dinner;
 
-  public static DayMeal From(int day, DateTime startDate, DateTime endDate, List<Recipy> allRecipes)
+  public static DayMeal From(int day, DateTime startDate, DateTime endDate, List<MealRecipe> allRecipes)
   {
     var startOfTheDay = startDate.AddDays(day - 1).Date;
     var breakFast = startOfTheDay.AddHours(8);
@@ -22,18 +22,18 @@ public class DayMeal
     };
   }
 
-  private static Recipy? PickMeal(DateTime time,
+  private static List<MealRecipe> PickMeal(DateTime time,
     DateTime startDate,
     DateTime endDate,
-    List<Recipy> allRecipes,
+    List<MealRecipe> allRecipes,
     MealType breakfast)
   {
-    if (time > startDate && time < endDate)
-      return allRecipes
-        .OrderBy(x => x.Used)
-        .Where(x => x.MealType == breakfast)
-        .Select(x => x.MarkUsed())
-        .FirstOrDefault();
-    return null;
+    // if (time > startDate && time < endDate)
+    //   return allRecipes
+    //     // .OrderBy(x => x.Used)
+    //     .Where(x => x.MealType == breakfast)
+    //     // .Select(x => x.MarkUsed())
+    //     .FirstOrDefault();
+    return new List<MealRecipe>();
   }
 }

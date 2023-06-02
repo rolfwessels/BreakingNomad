@@ -9,9 +9,9 @@ public static class ColorPicker
     return tagMealType switch
     {
       MealType.Breakfast => "#77DD77!important",
-      // Meal.Snack => "#89cff0!important",
+      MealType.Side => "#89cff0!important",
       MealType.Dinner => "#99c5c4!important",
-      // Meal.Dessert => "#9adedb!important",
+      MealType.Dessert => "#9adedb!important",
       MealType.Lunch => "#bdb0d0!important",
       _ => "#cb99c9!important"
     };

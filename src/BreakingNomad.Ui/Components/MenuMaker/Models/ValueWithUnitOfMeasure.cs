@@ -1,5 +1,6 @@
 using Bumbershoot.Utilities.Helpers;
 using System.Reflection;
+using BreakingNomad.Ui.Helpers;
 
 namespace BreakingNomad.Ui.Components.MenuMaker.Models;
 
@@ -24,7 +25,7 @@ public static class Unit
     .RoundUpTo(18.1m, 3, "Six Packs")
     .RoundUpTo(24, 1, "Slab");
 
-  public static ValueWithUnitOfMeasure Bottle750 = new ValueWithUnitOfMeasure(0, "Bottle750")
+  public static ValueWithUnitOfMeasure Bottle750 = new ValueWithUnitOfMeasure(0, "Bottle")
     .RoundUpTo(0.5m, 1, "Half jack").RoundUpTo(1m, 1, "Bottle");
 
   public static ValueWithUnitOfMeasure Litre = new ValueWithUnitOfMeasure(0, "Litre")
@@ -45,6 +46,8 @@ public static class Unit
   public static ValueWithUnitOfMeasure AUnit = new ValueWithUnitOfMeasure(0, "Unit");
   public static ValueWithUnitOfMeasure Ml = new ValueWithUnitOfMeasure(0, "Ml");
   public static ValueWithUnitOfMeasure Punnet = new ValueWithUnitOfMeasure(0, "Punnet");
+  public static ValueWithUnitOfMeasure Tin = new ValueWithUnitOfMeasure(0, "tin");
+  
   private static ValueWithUnitOfMeasure[]? _all;
 
   public static ValueWithUnitOfMeasure ByName(string name)
@@ -56,10 +59,7 @@ public static class Unit
 
   public static ValueWithUnitOfMeasure[] All()
   {
-    return _all ??= typeof(Unit)
-      .GetFields(BindingFlags.Public | BindingFlags.Static)
-      .Where(x => x.FieldType == typeof(ValueWithUnitOfMeasure))
-      .Select(x => (ValueWithUnitOfMeasure)x.GetValue(null)!)
+    return _all ??= typeof(Unit).GetStaticProperties<ValueWithUnitOfMeasure>()
       .ToArray();
   }
 }

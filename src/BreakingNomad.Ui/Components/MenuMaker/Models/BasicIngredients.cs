@@ -24,7 +24,7 @@ public class BasicIngredients
 
   public static Ingredient Honey(decimal amount = 0.01m)
   {
-    return From("Honey", amount, "Bottle750");
+    return From("Honey", amount, "Bottle");
   }
 
   public static Ingredient Cheese(decimal amount = 20m)
@@ -34,7 +34,7 @@ public class BasicIngredients
 
   public static Ingredient TomatoSause(decimal amount = 0.01m)
   {
-    return From("Tomato sauce", amount, "Bottle750");
+    return From("Tomato sauce", amount, "Bottle");
   }
 
   public static Ingredient Yogurt(decimal amount = 1m)
@@ -77,9 +77,9 @@ public class BasicIngredients
     return From("Potatoes", amount, "unit");
   }
 
-  public static Ingredient Flour(decimal amount = 0.25m)
+  public static Ingredient Flour(decimal amount = 250m)
   {
-    return From("Flour", amount, "KG");
+    return From("Flour", amount, "gram");
   }
 
   public static Ingredient Yeast(decimal amount = 1)

@@ -7,7 +7,6 @@ public class TripMenu
 {
   public string Id { get; set; } = null!;
   public List<IngredientPerDay> GetAllIngredientsPerDay {get;set; } = new();
-  public List<Recipy> AllRecipes = new();
   public List<DayMeal> DayMeals = new();
   
   public DateTime EndDate = DateTime.Now.AddDays(3);
@@ -30,28 +29,25 @@ public class TripMenu
 
  
 
-  public void AddMealOption(Recipy recipe)
-  {
-    AllRecipes.Add(recipe);
-  }
+
 
   public static TripMenu From(string id, DateTime startDate, DateTime endDate, int people = 1)
   {
-    return new TripMenu()
+    var tripMenu = new TripMenu()
     {
       Id = id,
       StartDate = startDate,
       EndDate = endDate,
       People = people,
     };
+    tripMenu.DayMeals.AddRange(Enumerable.Range(1, tripMenu.Days + 1)
+      .Select(day => DayMeal.From(day,  tripMenu.StartDate,  tripMenu.EndDate, new List<MealRecipe>())));
+    return tripMenu;
   }
 
   public void Calculate()
   {
-    AllRecipes.ForEach(x => x.MarkUsed(false));
-    DayMeals.Clear();
-    DayMeals.AddRange(Enumerable.Range(1, Days + 1)
-      .Select(day => DayMeal.From(day, StartDate, EndDate, AllRecipes)));
+    
 
     ShoppingListItem.Clear();
     // ShoppingListItem.AddRange(AllRecipes
