@@ -62,6 +62,15 @@ make publish
 - `make test` : Build the breaking nomad to build folder
 - `make deploy` : Deploy the breaking nomad
 
+## Focus todo list
+
+- [ ] Break the recipes apart
+- [ ] Add better unit of measure support
+- [ ] Add better ingredient support
+- [ ] Add ai generated recipes
+- [ ] Store the values in a database instead of in memory
+- [ ] 
+
 ## License 📝
 
 Breaking Nomad is licensed under the MIT License. See LICENSE for more information.

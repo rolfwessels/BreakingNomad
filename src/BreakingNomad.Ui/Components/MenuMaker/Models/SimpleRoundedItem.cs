@@ -30,3 +30,18 @@ public class SimpleRoundedItem
     return new SimpleRoundedItem(Name, UnitValue * amount, Unit, InUnit);
   }
 }
+
+
+public record Ingredient(FoodCategory Category, string Name, ValueWithUnitOfMeasure Value)
+{
+
+}
+
+public record IngredientPerDay(decimal Amount, Ingredient Ingredient)
+{
+  public ValueWithUnitOfMeasure CalculatePerDay(int days, int people)
+  {
+    var perDay= Ingredient.Value + Amount;
+    return perDay * days * people;
+  }
+}

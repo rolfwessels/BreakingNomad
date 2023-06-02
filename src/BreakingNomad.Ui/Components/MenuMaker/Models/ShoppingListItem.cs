@@ -1,17 +1,16 @@
-﻿namespace BreakingNomad.Ui.Components.MenuMaker.Models;
+namespace BreakingNomad.Ui.Components.MenuMaker.Models;
 
 public class ShoppingListItem
 {
-  public string Category;
+  public FoodCategory Category;
   public string Name;
   public string Unit;
-  public decimal UnitValue;
+  public ValueWithUnitOfMeasure UnitValue;
 
-  public ShoppingListItem(string category, string name, decimal unitValue, string unit)
+  public ShoppingListItem(FoodCategory category, string name, ValueWithUnitOfMeasure unitValue)
   {
     Category = category;
     Name = name;
     UnitValue = unitValue;
-    Unit = unit;
   }
 }

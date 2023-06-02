@@ -3,8 +3,16 @@ namespace BreakingNomad.Ui.Components.MenuMaker.Models;
 public enum Meal
 {
   Breakfast,
+  Lunch,
+  Dinner
+}
+
+public enum FoodCategory
+{
+  Protein,
   Snack,
-  Dinner,
-  Dessert,
-  Lunch
+  Side,
+  Desert,
+  Drink,
+  Alcohol,
 }
