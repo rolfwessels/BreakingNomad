@@ -21,7 +21,7 @@
     <Title>Please select a meal</Title>
     <Body>
     
-    @foreach (var tag in AllowedItems.Where(x=>!SelectedItems.Contains(x)).OrderByDescending(x => x.Meal == MealType).ThenBy(x => x.Meal).ThenBy(x => x.Name))
+    @foreach (var tag in AllowedItems.Where(x=>!SelectedItems.Contains(x)).OrderByDescending(x => x.MealType == MealType).ThenBy(x => x.MealType).ThenBy(x => x.Name))
     {
       <a @onclick="()=>AddToList(tag)"><span class="badge bg-secondary mx-3" style="background-color: @ToColor(tag)">
         @tag.Name
@@ -47,7 +47,7 @@
     public List<Recipy> AllowedItems { get; set; } = new();
 
     [Parameter]
-    public Meal? MealType { get; set; }
+    public MealType? MealType { get; set; }
 
     public bool _isListHidden = true;
 
@@ -58,7 +58,7 @@
 
     private string ToColor(Recipy tag)
     {
-      return tag.Meal.ToColor();
+      return tag.MealType.ToColor();
     }
 
   private void Add()

@@ -1,3 +1,6 @@
+using Bumbershoot.Utilities.Helpers;
+using System.Reflection;
+
 namespace BreakingNomad.Ui.Components.MenuMaker.Models;
 
 public static class Unit
@@ -6,7 +9,7 @@ public static class Unit
     .RoundUpTo(6, 1, "Half Carton")
     .RoundUpTo(12, 1, "Carton");
 
-  public static ValueWithUnitOfMeasure Loaf = new ValueWithUnitOfMeasure(0, "Loaf")
+  public static ValueWithUnitOfMeasure Loaf = new ValueWithUnitOfMeasure(0, "Slice")
     .RoundUpTo(12, 1, "Half Loaf").RoundUpTo(24, 1, "Loaf");
 
   public static ValueWithUnitOfMeasure SixPack = new ValueWithUnitOfMeasure(0, "SixPack")
@@ -37,6 +40,20 @@ public static class Unit
     .RoundUpTo(1000, 1, "kg");
 
   public static ValueWithUnitOfMeasure Rand = new ValueWithUnitOfMeasure(0, "Rand");
+  public static ValueWithUnitOfMeasure TeaBag = new ValueWithUnitOfMeasure(0, "Tea bag");
+  public static ValueWithUnitOfMeasure Sachets = new ValueWithUnitOfMeasure(0, "Sachets");
+  public static ValueWithUnitOfMeasure AUnit = new ValueWithUnitOfMeasure(0, "Unit");
+
+  public static ValueWithUnitOfMeasure ByName(string name)
+  {
+    var propertyInfos = typeof(Unit)
+        .GetFields(BindingFlags.Public | BindingFlags.Static)
+        .Where(x=>x.FieldType == typeof(ValueWithUnitOfMeasure))
+        //.With(x=>x.Select(r=>r.Name).Dump())
+        .Select(x=> (ValueWithUnitOfMeasure) x.GetValue(null)! );
+    
+    return propertyInfos.FirstOrDefault(measure=>measure.Name.ToLower() == name.ToLower()) ?? throw new Exception($"Could not match {name}");
+  }
 }
 
 public record ValueWithUnitOfMeasure(decimal Value, string Name)

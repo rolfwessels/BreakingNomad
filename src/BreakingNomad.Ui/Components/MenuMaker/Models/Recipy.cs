@@ -3,13 +3,13 @@ namespace BreakingNomad.Ui.Components.MenuMaker.Models;
 public class Recipy
 {
   public List<SimpleRoundedItem> Items = new();
-  public Meal Meal;
+  public MealType MealType;
   public string Name;
   public int Used;
 
-  public Recipy As(Meal mealType)
+  public Recipy As(MealType mealTypeType)
   {
-    Meal = mealType;
+    MealType = mealTypeType;
     return this;
   }
 
@@ -32,7 +32,7 @@ public class Recipy
     return new Recipy
     {
       Name = b.Name + " + " + c.Name,
-      Meal = b.Meal,
+      MealType = b.MealType,
       Items = b.Items.Concat(c.Items).ToList(),
       Used = 0
     };

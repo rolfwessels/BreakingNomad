@@ -40,8 +40,8 @@ public class ValueWithUnitOfMeasureTests
 
   [Test]
   [TestCase(1, "1 Can")]
-  [TestCase(5, "1 Six Pack (5)")]
-  [TestCase(12, "2 Six Packs")]
+  [TestCase(5, "5 Cans")]
+  [TestCase(12, "2 Six Packs (12)")]
   [TestCase(13, "3 Six Packs (13)")]
   [TestCase(24, "1 Slab")]
   public void SixPack_GivenDifferentValues_ShouldHaveCompleteValueAndDisplayValue(decimal value,string expected)

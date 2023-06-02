@@ -5,7 +5,7 @@ public class Dinner
   public static Recipy ChickenEspetada = new()
   {
     Name = "Chicken Espetada",
-    Meal = Meal.Dinner,
+    MealType = MealType.Dinner,
     Items =
     {
       new SimpleRoundedItem("Chicken Espetada", 0.5m, "pack")
@@ -15,7 +15,7 @@ public class Dinner
   public static Recipy Salmon = new()
   {
     Name = "Salmon",
-    Meal = Meal.Dinner,
+    MealType = MealType.Dinner,
     Items =
     {
       new SimpleRoundedItem("Salmon", 200, "grams")
@@ -25,7 +25,7 @@ public class Dinner
   public static Recipy PortFillet = new()
   {
     Name = "Port Fillet",
-    Meal = Meal.Dinner,
+    MealType = MealType.Dinner,
     Items =
     {
       new SimpleRoundedItem("Port Fillet", 200, "grams")
@@ -35,7 +35,7 @@ public class Dinner
   public static Recipy RoastChicken = new()
   {
     Name = "Roast chicken",
-    Meal = Meal.Dinner,
+    MealType = MealType.Dinner,
     Items =
     {
       new SimpleRoundedItem("Chicken", 1, "half chicken")
@@ -45,7 +45,7 @@ public class Dinner
   public static Recipy Fillet = new()
   {
     Name = "Fillet",
-    Meal = Meal.Dinner,
+    MealType = MealType.Dinner,
     Items =
     {
       new SimpleRoundedItem("Fillet", 250, "grams")
@@ -55,7 +55,7 @@ public class Dinner
   public static Recipy Wors = new()
   {
     Name = "Wors",
-    Meal = Meal.Dinner,
+    MealType = MealType.Dinner,
     Items =
     {
       new SimpleRoundedItem("Wors", 250, "grams")
@@ -66,7 +66,7 @@ public class Dinner
   public static Recipy AppricotPork = new()
   {
     Name = "Appricot Pork",
-    Meal = Meal.Dinner,
+    MealType = MealType.Dinner,
     Items =
     {
       new SimpleRoundedItem("Pork", 200, "grams"),
@@ -81,7 +81,7 @@ public class Dinner
   public static Recipy Tuna = new()
   {
     Name = "Tuna",
-    Meal = Meal.Dinner,
+    MealType = MealType.Dinner,
     Items =
     {
       new SimpleRoundedItem("Tuna", 200, "grams")
@@ -92,7 +92,7 @@ public class Dinner
   public static Recipy PorkBelly = new()
   {
     Name = "Pork Belly",
-    Meal = Meal.Dinner,
+    MealType = MealType.Dinner,
     Items =
     {
       new SimpleRoundedItem("Pork Belly", 250, "grams")
@@ -102,7 +102,7 @@ public class Dinner
   public static Recipy Burgers = new()
   {
     Name = "Burgers",
-    Meal = Meal.Dinner,
+    MealType = MealType.Dinner,
     Items =
     {
       new SimpleRoundedItem("Burgers Patty", 250, "grams"),
@@ -116,7 +116,7 @@ public class Dinner
   public static Recipy ApricotChicken = new()
   {
     Name = "Apricot chicken",
-    Meal = Meal.Dinner,
+    MealType = MealType.Dinner,
     Items =
     {
       new SimpleRoundedItem("Chicken With Skin", 200, "grams"),
@@ -132,7 +132,7 @@ public class Dinner
   public static Recipy ChickenBurger = new()
   {
     Name = "Chicken Burgers",
-    Meal = Meal.Dinner,
+    MealType = MealType.Dinner,
     Items =
     {
       new SimpleRoundedItem("Chicken breasts", 250, "grams"),
@@ -154,7 +154,7 @@ public class Dinner
   public static Recipy Steak = new()
   {
     Name = "Steak + Mushroom sauce",
-    Meal = Meal.Dinner,
+    MealType = MealType.Dinner,
     Items =
     {
       new SimpleRoundedItem("Beef Steak", 250, "grams"),
@@ -165,7 +165,7 @@ public class Dinner
   public static Recipy Bread = new()
   {
     Name = "Bread",
-    Meal = Meal.Dinner,
+    MealType = MealType.Dinner,
     Items =
     {
       BasicItems.Flour(),
@@ -179,7 +179,7 @@ public class Dinner
   public static Recipy Pizza = new()
   {
     Name = "Pizza",
-    Meal = Meal.Dinner,
+    MealType = MealType.Dinner,
     Items =
     {
       new SimpleRoundedItem("Tomatoe paste", 0.2m, "small can"),
@@ -198,7 +198,7 @@ public class Dinner
     return new Recipy
     {
       Name = "C-" + name,
-      Meal = Meal.Dinner
+      MealType = MealType.Dinner
     };
   }
 }

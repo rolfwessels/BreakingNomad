@@ -17,6 +17,13 @@ internal class MenuLookup : IMenuLookup
     return allIngredients;
   }
 
+  public List<MealRecipe> GetMeals()
+  {
+    var meals = new List<MealRecipe>();
+    meals.AddRange(BreakFast.All());
+    return meals;
+  }
+
   private IEnumerable<IngredientPerDay> IngredientsPerDayPerPerson()
   {
     yield return new IngredientPerDay(2, new Ingredient(FoodCategory.Alcohol, "Beer", Unit.SixPack));
@@ -24,13 +31,15 @@ internal class MenuLookup : IMenuLookup
     yield return new IngredientPerDay(0.05m, new Ingredient(FoodCategory.Alcohol, "Whiskey", Unit.Bottle750));
     yield return new IngredientPerDay(0.05m, new Ingredient(FoodCategory.Alcohol, "Gin", Unit.Bottle750));
     yield return new IngredientPerDay(0.2m, new Ingredient(FoodCategory.Drink, "Tonic", Unit.Bottle750));
-
-
+    
     yield return new IngredientPerDay(1, new Ingredient(FoodCategory.Drink, "Coke Can", Unit.SixPack));
     yield return new IngredientPerDay(0.25m, new Ingredient(FoodCategory.Drink, "Milk", Unit.Litre));
     yield return new IngredientPerDay(2m, new Ingredient(FoodCategory.Drink, "Water", Unit.Litre));
     yield return new IngredientPerDay(0.2m, new Ingredient(FoodCategory.Drink, "Orange juice", Unit.Litre));
     yield return new IngredientPerDay(41, new Ingredient(FoodCategory.Drink, "Koffee", Unit.Gram));
+    yield return new IngredientPerDay(0.5m, new Ingredient(FoodCategory.Drink, "Tea", Unit.TeaBag));
+    yield return new IngredientPerDay(0.3m, new Ingredient(FoodCategory.Drink, "Hot Chocolate", Unit.Sachets));
+    
 
     yield return new IngredientPerDay(0.4m, new Ingredient(FoodCategory.Snack, "Pack of chips", Unit.Pack));
     yield return new IngredientPerDay(25m, new Ingredient(FoodCategory.Snack, "Biltong", Unit.Rand));
@@ -58,27 +67,12 @@ internal class MenuLookup : IMenuLookup
 
   private void AddAll(TripMenu trip)
   {
-    //trip.AddDrinks("Gin", 0.05m, "Bottle");
-    //trip.AddDrinks("Tonic water", 0.4m, "Bottle");
 
 
-    //trip.AddDrinks("Tea", 1, "Bag");
-    //trip.AddDrinks("Hot Chocolate", 0.3m, "Saches");
 
     /*
-    trip.AddMealOption(BreakFast.FrenchToast);
-    trip.AddMealOption(BreakFast.Rusks);
-    trip.AddMealOption(BreakFast.FruitSalad);
 
-    trip.AddMealOption(BreakFast.Rusks);
-    trip.AddMealOption(BreakFast.Cereal);
-    trip.AddMealOption(BreakFast.Rusks);
-    trip.AddMealOption(BreakFast.Cereal);
-    trip.AddMealOption(BreakFast.BaconEggs);
 
-    //trip.AddMealOption(BreakFast.Cereal);
-    //trip.AddMealOption(BreakFast.BaconEggs);
-    //trip.AddMealOption(BreakFast.Rusks);
 
     trip.AddMealOption(Side.BraaiBroodtjies);
     trip.AddMealOption(Snack.Biltong);
@@ -117,3 +111,5 @@ internal class MenuLookup : IMenuLookup
     trip.AddMealOption(Dinner.RoastChicken + Side.Potatoes + Side.Salad);*/
   }
 }
+
+

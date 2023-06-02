@@ -31,11 +31,13 @@ public class SimpleRoundedItem
   }
 }
 
-
 public record Ingredient(FoodCategory Category, string Name, ValueWithUnitOfMeasure Value)
 {
 
 }
+
+public record MealRecipe(MealType MealType, string Name,Ingredient[] Ingredients);
+
 
 public record IngredientPerDay(decimal Amount, Ingredient Ingredient)
 {

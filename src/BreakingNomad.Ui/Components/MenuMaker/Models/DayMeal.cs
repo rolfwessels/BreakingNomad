@@ -16,9 +16,9 @@ public class DayMeal
     return new DayMeal
     {
       Day = startOfTheDay,
-      Breakfast = PickMeal(breakFast, startDate, endDate, allRecipes, Meal.Breakfast),
-      Lunch = PickMeal(snack, startDate, endDate, allRecipes, Meal.Lunch),
-      Dinner = PickMeal(dinner, startDate, endDate, allRecipes, Meal.Dinner),
+      Breakfast = PickMeal(breakFast, startDate, endDate, allRecipes, MealType.Breakfast),
+      Lunch = PickMeal(snack, startDate, endDate, allRecipes, MealType.Lunch),
+      Dinner = PickMeal(dinner, startDate, endDate, allRecipes, MealType.Dinner),
     };
   }
 
@@ -26,12 +26,12 @@ public class DayMeal
     DateTime startDate,
     DateTime endDate,
     List<Recipy> allRecipes,
-    Meal breakfast)
+    MealType breakfast)
   {
     if (time > startDate && time < endDate)
       return allRecipes
         .OrderBy(x => x.Used)
-        .Where(x => x.Meal == breakfast)
+        .Where(x => x.MealType == breakfast)
         .Select(x => x.MarkUsed())
         .FirstOrDefault();
     return null;

@@ -1,67 +1,67 @@
-﻿namespace BreakingNomad.Ui.Components.MenuMaker.Models;
+namespace BreakingNomad.Ui.Components.MenuMaker.Models;
 
 public class BreakFast
 {
-  public static Recipy FrenchToast = new()
-  {
-    Name = "French toast",
-    Meal = Meal.Breakfast,
-    Items =
-    {
-      BasicItems.Eggs(2),
-      BasicItems.BreadSlice(),
-      BasicItems.Honey(),
-      BasicItems.Cheese(),
-      BasicItems.TomatoSause(),
-      BasicItems.Bacon()
-    }
-  };
+  public static MealRecipe FrenchToast = new(MealType.Breakfast,"French toast",new []{
+    BasicIngredients.Eggs(2),
+    BasicIngredients.BreadSlice(),
+    BasicIngredients.Honey(),
+    BasicIngredients.Cheese(),
+    BasicIngredients.TomatoSause(),
+    BasicIngredients.Bacon()
+  });
+  
 
-  public static Recipy BaconEggs = new()
-  {
-    Name = "Bacon Eggs",
-    Meal = Meal.Breakfast,
-    Items =
+  public static MealRecipe Omelette = new(MealType.Breakfast,"Omelette", new [] 
     {
-      BasicItems.Eggs(2),
-      BasicItems.BreadSlice(),
-      BasicItems.Tomato(0.2m),
-      BasicItems.Cheese(150),
-      BasicItems.TomatoSause(),
-      BasicItems.Bacon()
+      BasicIngredients.Eggs(2),
+      BasicIngredients.Cheese(150),
+      BasicIngredients.Ham()
     }
-  };
+  );
 
-  public static Recipy Cereal = new()
-  {
-    Name = "Cereal",
-    Meal = Meal.Breakfast,
-    Items =
+  public static MealRecipe BaconEggs = new(MealType.Breakfast,"Bacon Eggs", new [] 
     {
-      BasicItems.Milk(),
-      BasicItems.Cereal()
+      BasicIngredients.Eggs(2),
+      BasicIngredients.BreadSlice(),
+      BasicIngredients.Tomato(0.2m),
+      BasicIngredients.Cheese(150),
+      BasicIngredients.TomatoSause(),
+      BasicIngredients.Bacon()
     }
-  };
+  );
 
-  public static Recipy FruitSalad = new()
-  {
-    Name = "Fruit Salad",
-    Meal = Meal.Breakfast,
-    Items =
+  public static MealRecipe Cereal = new(MealType.Breakfast,"Cereal", new [] 
     {
-      BasicItems.Yogurt(),
-      BasicItems.FruitSaladSmall(),
-      BasicItems.Honey()
+      BasicIngredients.Milk(),
+      BasicIngredients.Cereal()
     }
-  };
+  );
 
-  public static Recipy Rusks = new()
-  {
-    Name = "Rusks",
-    Meal = Meal.Breakfast,
-    Items =
+  public static MealRecipe FruitSalad = new(MealType.Breakfast,"Fruit Salad", new [] 
     {
-      BasicItems.Rusks(2)
+      BasicIngredients.Yogurt(),
+      BasicIngredients.FruitSaladSmall(),
+      BasicIngredients.Honey()
     }
-  };
+  );
+
+  public static MealRecipe Rusks = new(MealType.Breakfast,"Rusks", new [] 
+    {
+      BasicIngredients.Rusks(2)
+    }
+  );
+
+  public static IEnumerable<MealRecipe> All()
+  {
+    yield return FrenchToast;
+    yield return Rusks;
+    yield return FruitSalad;
+    yield return Rusks;
+    yield return Cereal;
+    yield return Rusks;
+    yield return Cereal;
+    yield return BaconEggs;
+    yield return Omelette;
+  }
 }

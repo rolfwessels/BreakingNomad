@@ -60,13 +60,13 @@ else
             <tr>
               <td >@day.Day.ToString(FormattingConstants.DateAndDay)</td>
               <td>
-                <ItemPicker AllowedItems="_allowedValues" MealType="@Meal.Breakfast" SelectedItems="Lists(day.Breakfast)"></ItemPicker>
+                <ItemPicker AllowedItems="_allowedValues" MealType="@MealType.Breakfast" SelectedItems="Lists(day.Breakfast)"></ItemPicker>
               </td>
               <td>
-                <ItemPicker AllowedItems="_allowedValues" MealType="@Meal.Lunch" SelectedItems="Lists(day.Lunch)"></ItemPicker>
+                <ItemPicker AllowedItems="_allowedValues" MealType="@MealType.Lunch" SelectedItems="Lists(day.Lunch)"></ItemPicker>
               </td>
               <td>
-                <ItemPicker AllowedItems="_allowedValues" MealType="@Meal.Dinner" SelectedItems="Lists(day.Dinner)"></ItemPicker>
+                <ItemPicker AllowedItems="_allowedValues" MealType="@MealType.Dinner" SelectedItems="Lists(day.Dinner)"></ItemPicker>
               </td>
             </tr>
           }
