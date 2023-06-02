@@ -1,95 +1,114 @@
+using System.Reflection;
+using BreakingNomad.Ui.Components.MenuMaker.Models;
+
 namespace BreakingNomad.Ui.Components.MenuMaker.Models;
 
 public class Side
 {
-  // public static Recipy Potatoes = new()
-  // {
-  //   Name = "Potatoes",
-  //   Meal = Meal.Snack,
-  //   Items =
-  //   {
-  //     BasicItems.Potatoe()
-  //   }
-  // };
-  //
-  // public static Recipy SweetPotatoes = new()
-  // {
-  //   Name = "Sweet Potatoe",
-  //   Meal = Meal.Snack,
-  //   Items =
-  //   {
-  //     new SimpleRoundedItem("Sweet Potatoes", 1m, "item")
-  //   }
-  // };
-  //
-  //
-  // public static Recipy Salad = new()
-  // {
-  //   Name = "Salad",
-  //   Meal = Meal.Snack,
-  //   Items =
-  //   {
-  //     new SimpleRoundedItem("Woolies Salad", 0.5m, "pack")
-  //   }
-  // };
-  //
-  // public static Recipy BraaiBroodtjies = new()
-  // {
-  //   Name = "Braai broodtjies",
-  //   Meal = Meal.Snack,
-  //   Items =
-  //   {
-  //     BasicItems.Butter(),
-  //     BasicItems.BreadSlice(4),
-  //     BasicItems.Cheese(50),
-  //     BasicItems.Ham(20)
-  //   }
-  // };
-  //
-  // public static Recipy DuckFatPotatoes = new()
-  // {
-  //   Name = "Duck fat potatoes",
-  //   Meal = Meal.Snack,
-  //   Items =
-  //   {
-  //     BasicItems.Potatoe(),
-  //     new SimpleRoundedItem("Duck fat", 100, "ml")
-  //   }
-  // };
-  //
-  //
-  // public static Recipy Chips = new()
-  // {
-  //   Name = "Chips",
-  //   Meal = Meal.Snack,
-  //   Items =
-  //   {
-  //     BasicItems.Potatoe()
-  //   }
-  // };
-  //
-  // public static Recipy Rice = new()
-  // {
-  //   Name = "Rice",
-  //   Meal = Meal.Snack,
-  //   Items =
-  //   {
-  //     new SimpleRoundedItem("Rice", 125, "grams")
-  //   }
-  // };
-  //
-  // public static Recipy DeniseSalad = new()
-  // {
-  //   Name = "Denise Salad",
-  //   Meal = Meal.Snack,
-  //   Items =
-  //   {
-  //     new SimpleRoundedItem("Sweet basil", 0.25m, "punnet"),
-  //     new SimpleRoundedItem("Spanspek", 0.25m, "fruit"),
-  //     new SimpleRoundedItem("Mozzarella balls", 1, "balls"),
-  //     new SimpleRoundedItem("Balsamic glaze", 0.01m, "bottle"),
-  //     new SimpleRoundedItem("Cherry tomatoes", 0.25m, "punnet"),
-  //     new SimpleRoundedItem("Prosciutto", 0.25m, "pack")
-  //   }
-  // };
+  public static MealRecipe Potatoes = new(
+    MealType.Side,
+    "Baked Potatoes",
+    new []
+    {
+      BasicIngredients.Potato(),
+      BasicIngredients.Butter(),
+      BasicIngredients.Foil()
+    }
+  );
+  
+  public static MealRecipe SweetPotatoes = new(
+    MealType.Side,
+    "Sweet Baked Potatoe",
+    
+    new []
+    {
+      BasicIngredients.From("Sweet Potatoes", 1m, "unit"),
+      BasicIngredients.Butter(),
+      BasicIngredients.Foil()
+    }
+  );
+  
+  
+  public static MealRecipe Salad = new(
+    MealType.Side,
+    "Woolies Salad",
+    
+    new []
+    {
+      BasicIngredients.From("Woolies Salad", 0.5m, "pack")
+    }
+  );
+  
+  public static MealRecipe BraaiBroodtjies = new(
+    MealType.Side,
+    "Braai broodtjies",
+    
+    new []
+    {
+      BasicIngredients.Butter(),
+      BasicIngredients.BreadSlice(4),
+      BasicIngredients.Cheese(50),
+      BasicIngredients.Ham(20)
+    }
+  );
+  
+  public static MealRecipe DuckFatPotatoes = new(
+    MealType.Side,
+    "Duck fat potatoes",
+    
+    new []
+    {
+      BasicIngredients.Potato(),
+      BasicIngredients.From("Duck fat", 100, "ml")
+    }
+  );
+  
+  
+  public static MealRecipe Chips = new(
+    MealType.Side,
+    "Potato Chips",
+    
+    new []
+    {
+      BasicIngredients.Potato(),
+      BasicIngredients.Oil(),
+      BasicIngredients.Salt()
+    }
+  );
+  
+  public static MealRecipe Rice = new(
+    MealType.Side,
+    "Rice",
+    
+    new []
+    {
+      BasicIngredients.From("Rice", 125, "gram"),
+      BasicIngredients.Water(),
+      BasicIngredients.Salt()
+    }
+  );
+  
+  public static MealRecipe DeniseSalad = new(
+    MealType.Side,
+    "Denise Salad",
+    
+    new []
+    {
+      BasicIngredients.From("Sweet basil", 0.25m, "punnet"),
+      BasicIngredients.From("Spanspek", 0.25m, "Unit"),
+      BasicIngredients.From("Mozzarella balls", 1, "Unit"),
+      BasicIngredients.From("Balsamic glaze", 0.01m, "Bottle750"),
+      BasicIngredients.From("Cherry tomatoes", 0.25m, "punnet"),
+      BasicIngredients.From("Prosciutto", 0.25m, "pack")
+    }
+  );
+
+  public static IEnumerable<MealRecipe> All()
+  {
+    return typeof(Side)
+      .GetFields(BindingFlags.Public | BindingFlags.Static)
+      .Where(x => x.FieldType == typeof(MealRecipe))
+      .Select(x => (MealRecipe)x.GetValue(null)!)
+      .ToArray();
+  }
 }

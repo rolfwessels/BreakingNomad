@@ -43,16 +43,24 @@ public static class Unit
   public static ValueWithUnitOfMeasure TeaBag = new ValueWithUnitOfMeasure(0, "Tea bag");
   public static ValueWithUnitOfMeasure Sachets = new ValueWithUnitOfMeasure(0, "Sachets");
   public static ValueWithUnitOfMeasure AUnit = new ValueWithUnitOfMeasure(0, "Unit");
+  public static ValueWithUnitOfMeasure Ml = new ValueWithUnitOfMeasure(0, "Ml");
+  public static ValueWithUnitOfMeasure Punnet = new ValueWithUnitOfMeasure(0, "Punnet");
+  private static ValueWithUnitOfMeasure[]? _all;
 
   public static ValueWithUnitOfMeasure ByName(string name)
   {
-    var propertyInfos = typeof(Unit)
-        .GetFields(BindingFlags.Public | BindingFlags.Static)
-        .Where(x=>x.FieldType == typeof(ValueWithUnitOfMeasure))
-        //.With(x=>x.Select(r=>r.Name).Dump())
-        .Select(x=> (ValueWithUnitOfMeasure) x.GetValue(null)! );
-    
+    var propertyInfos = All();
+
     return propertyInfos.FirstOrDefault(measure=>measure.Name.ToLower() == name.ToLower()) ?? throw new Exception($"Could not match {name}");
+  }
+
+  public static ValueWithUnitOfMeasure[] All()
+  {
+    return _all ??= typeof(Unit)
+      .GetFields(BindingFlags.Public | BindingFlags.Static)
+      .Where(x => x.FieldType == typeof(ValueWithUnitOfMeasure))
+      .Select(x => (ValueWithUnitOfMeasure)x.GetValue(null)!)
+      .ToArray();
   }
 }
 

@@ -6,6 +6,17 @@ namespace BreakingNomad.Ui.Tests.Components.MenuMaker.Models;
 public class ValueWithUnitOfMeasureTests
 {
   [Test]
+  public void All_GivenRequest_ShouldHaveUniqueName()
+  {
+    // action 
+    var enumerable = Unit.All().Select(x=>x.Name);
+    // assert
+    enumerable.Should().OnlyHaveUniqueItems();
+  }
+
+
+
+  [Test]
   [TestCase(1, "1 Half Carton (1)")]
   [TestCase(5, "1 Half Carton (5)")]
   [TestCase(6, "1 Half Carton")]

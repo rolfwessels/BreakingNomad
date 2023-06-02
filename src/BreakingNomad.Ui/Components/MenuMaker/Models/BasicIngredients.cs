@@ -7,7 +7,7 @@ public class BasicIngredients
     return From("Eggs", amount, "Carton");
   }
 
-  private static Ingredient From(string name, decimal amount, string defaultFor1)
+  public static Ingredient From(string name, decimal amount, string defaultFor1)
   {
     return new Ingredient(FoodCategory.Produce,name,Unit.ByName(defaultFor1) + amount);
   }
@@ -34,7 +34,7 @@ public class BasicIngredients
 
   public static Ingredient TomatoSause(decimal amount = 0.01m)
   {
-    return From("Tomato sause", amount, "Bottle750");
+    return From("Tomato sauce", amount, "Bottle750");
   }
 
   public static Ingredient Yogurt(decimal amount = 1m)
@@ -72,9 +72,9 @@ public class BasicIngredients
     return From("Ham", amount, "Gram");
   }
 
-  public static Ingredient Potatoe(decimal amount = 2)
+  public static Ingredient Potato(decimal amount = 2)
   {
-    return From("Potatoes", amount, "Potatoes");
+    return From("Potatoes", amount, "unit");
   }
 
   public static Ingredient Flour(decimal amount = 0.25m)
@@ -89,12 +89,12 @@ public class BasicIngredients
 
   public static Ingredient Salt(decimal amount = 0.5m)
   {
-    return From("Salt", amount, "grams");
+    return From("Salt", amount, "gram");
   }
 
   public static Ingredient Sugar(decimal amount = 0.5m)
   {
-    return From("Sugar", amount, "grams");
+    return From("Sugar", amount, "gram");
   }
 
   public static Ingredient SaladLeaves(decimal amount = 0.5m)
@@ -104,6 +104,21 @@ public class BasicIngredients
 
   public static Ingredient Butter(decimal amount = 20m)
   {
-    return From("Butter", amount, "grams");
+    return From("Butter", amount, "gram");
+  }
+
+  public static Ingredient Foil()
+  {
+    return new Ingredient(FoodCategory.Produce,"Foil",Unit.AUnit+1);
+  }
+
+  public static Ingredient Oil()
+  {
+    return new Ingredient(FoodCategory.Produce,"Oil",Unit.Bottle750 +0.10m);
+  }
+
+  public static Ingredient Water()
+  {
+    return new Ingredient(FoodCategory.Drink,"Water",Unit.Litre +0.10m);
   }
 }

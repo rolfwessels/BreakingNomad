@@ -21,6 +21,7 @@ internal class MenuLookup : IMenuLookup
   {
     var meals = new List<MealRecipe>();
     meals.AddRange(BreakFast.All());
+    meals.AddRange(Side.All());
     return meals;
   }
 

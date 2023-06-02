@@ -7,7 +7,7 @@ namespace BreakingNomad.Ui.Tests.Components.MenuMaker.Models;
 public class BreakFastTests
 {
   [Test]
-  public void MealRecipes_GivenGivenValues_ShouldReturnAll()
+  public void MealRecipes_GivenWhenRequestingAll_ShouldReturnAll()
   {
     // arrange
     var mealRecipes = BreakFast.All().ToArray();
@@ -22,5 +22,20 @@ public class BreakFastTests
     table.Write();
   }
 
+  [Test]
+  public void Side_GivenWhenRequestingAll_ShouldReturnAll()
+  {
+    // arrange
+    var mealRecipes = Side.All().ToArray();
+    // action
+    
+    // assert
+    var table = new ConsoleTable("Type", "Name", "Ingredients");
+    foreach (var mealRecipe in mealRecipes)
+    {
+      table.AddRow(mealRecipe.MealType.ToString(), mealRecipe.Name, mealRecipe.Ingredients.Select(x=>x.Name +" "+x.Value).StringJoin());  
+    }
+    table.Write();
+  }
 
 }
