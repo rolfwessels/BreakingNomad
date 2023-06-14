@@ -6,31 +6,38 @@ namespace BreakingNomad.Api.Data;
 
 public class MenuService : Menu.MenuBase
 {
-  public override Task<PlannedTripsResponse> GetPlannedTrips(PlannedTripsRequest request, ServerCallContext context)
+  private readonly JsonDataStore<PlannedTrip> _dataStore;
+  
+
+  public MenuService(JsonDataStore<PlannedTrip> jsonDataStore)
   {
-    return Task.FromResult(new PlannedTripsResponse
-    {
-      Trips =
-      {
-        new PlannedTrip
-        {
-          Id = "1",
-          StartDate = Timestamp.FromDateTime(StartAt(DateTime.Now.AddDays(1), 6)),
-          Duration = Duration.FromTimeSpan(TimeSpan.FromDays(1)),
-          People = 1,
-          Name = "Test Trip"
-        },
-        new PlannedTrip
-        {
-          Id = "2",
-          StartDate = Timestamp.FromDateTime(StartAt(DateTime.Now.AddDays(50), 6)),
-          Duration = Duration.FromTimeSpan(TimeSpan.FromDays(3)),
-          People = 2,
-          Name = "Sample"
-        }
-      }
-    });
+    _dataStore = jsonDataStore;
   }
+
+  public override async Task<PlannedTripsResponse> GetPlannedTrips(PlannedTripsRequest request, ServerCallContext context)
+  {
+    return new PlannedTripsResponse()
+    {
+      Trips = { await _dataStore.GetAll() }
+    };  
+  }
+
+  public override async Task<PlannedTrip> AddPlannedTrip(PlannedTrip request, ServerCallContext context)
+  {
+    return await _dataStore.Add(request);
+  }
+
+  #region Overrides of MenuBase
+
+  public override async Task<SuccessOrNotResponse> RemovePlannedTrips(RemovePlannedTripsRequest request, ServerCallContext context)
+  {
+    return new SuccessOrNotResponse()
+    {
+      Success =  await _dataStore.Remove(request.Id)
+    };
+  } 
+
+  #endregion
 
   private DateTime StartAt(DateTime dateTime, int value)
   {

@@ -5,9 +5,20 @@ import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 
 package ApiMenu;
+
 service Menu {
     rpc GetPlannedTrips(PlannedTripsRequest) returns(PlannedTripsResponse);
+    rpc AddPlannedTrip(PlannedTrip) returns(PlannedTrip);
+    rpc RemovePlannedTrips(RemovePlannedTripsRequest) returns(SuccessOrNotResponse);
 }
+
+message RemovePlannedTripsRequest {
+  string id = 1;
+}
+message SuccessOrNotResponse {
+    bool success = 1;
+}
+
 message PlannedTripsRequest {}
 message PlannedTripsResponse {
     repeated PlannedTrip trips = 1;
