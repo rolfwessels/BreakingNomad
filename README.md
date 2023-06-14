@@ -64,12 +64,12 @@ make publish
 
 ## Focus todo list
 
-- [ ] Break the recipes apart
-- [ ] Add better unit of measure support
-- [ ] Add better ingredient support
+- [x] Break the recipes apart
+- [x] Add better unit of measure support
+- [x] Add better ingredient support
 - [ ] Add ai generated recipes
 - [ ] Store the values in a database instead of in memory
-- [ ] 
+- [ ] Add authentication
 
 ## License 📝
 
