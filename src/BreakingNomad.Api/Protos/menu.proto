@@ -1,0 +1,39 @@
+syntax = "proto3";
+option csharp_namespace = "Food";
+
+import "google/protobuf/duration.proto";  
+import "google/protobuf/timestamp.proto";
+
+package ApiMenu;
+service Menu {
+    rpc GetPlannedTrips(PlannedTripsRequest) returns(PlannedTripsResponse);
+}
+message PlannedTripsRequest {}
+message PlannedTripsResponse {
+    repeated PlannedTrip trips = 1;
+}
+
+message PlannedTrip {
+    string id = 1;
+    string name = 2;
+    int32 people = 3;
+    google.protobuf.Timestamp startDate = 4;
+    google.protobuf.Duration duration = 5;
+    repeated MealsOfTheDay mealsOfTheDay = 6;
+
+}
+
+enum MEAL_TYPE {
+  BREAKFAST = 0;
+  LUNCH =  1;
+  DINNER = 2;
+  SIDE = 3;
+  DESSERT = 4;
+}
+
+message MealsOfTheDay {
+
+    int32 day = 1;
+    MEAL_TYPE meal = 2;
+    repeated string options = 3;
+}

@@ -1,4 +1,7 @@
 using BreakingNomad.Ui.Components.MenuMaker.Models;
+using Food;
+using Grpc.Net.Client;
+using Grpc.Net.Client.Web;
 
 namespace BreakingNomad.Ui.Components.MenuMaker;
 
@@ -47,20 +50,28 @@ internal class MenuLookup : IMenuLookup
     yield return new IngredientPerDay(0.5m, new Ingredient(FoodCategory.Snack, "CheesySnacks", Unit.Pack));
   }
 
-  public Task<TripMenu[]> GetUpComingTrip()
+  public async Task<TripMenu[]> GetUpComingTrip()
   {
-    var tripMenus = new[]
+    using var channel = GrpcChannel.ForAddress("http://localhost:5200/", new GrpcChannelOptions
     {
-      TripMenu.From("aa1", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2),2),
-      TripMenu.From("aa2", DateTime.Now.AddDays(4), DateTime.Now.AddDays(8))
-    };
+      HttpHandler = new GrpcWebHandler(new HttpClientHandler())
+    });
+    var client = new Menu.MenuClient(channel);
+    var result  = await client.GetPlannedTripsAsync(new PlannedTripsRequest());
+
+    var tripMenus = result.Trips.Select(x =>
+    {
+      var startDate = x.StartDate.ToDateTime(); 
+      return TripMenu.From(x.Id, x.Name, startDate,startDate.Add(x.Duration.ToTimeSpan()),x.People);
+    }).ToArray();
+    
     foreach (var tripMenu in tripMenus)
     {
       tripMenu.AddIngredientsPerDay(GetAllIngredientsPerDay());
       tripMenu.Calculate();
     }
 
-    return Task.FromResult(tripMenus);
+    return tripMenus;
   }
 
   

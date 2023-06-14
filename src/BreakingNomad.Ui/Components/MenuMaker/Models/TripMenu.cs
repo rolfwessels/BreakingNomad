@@ -1,6 +1,3 @@
-using Bumbershoot.Utilities.Helpers;
-using System.Linq;
-
 namespace BreakingNomad.Ui.Components.MenuMaker.Models;
 
 public class TripMenu
@@ -31,11 +28,12 @@ public class TripMenu
 
 
 
-  public static TripMenu From(string id, DateTime startDate, DateTime endDate, int people = 1)
+  public static TripMenu From(string id,string name, DateTime startDate, DateTime endDate, int people = 1)
   {
     var tripMenu = new TripMenu()
     {
       Id = id,
+      Name = name,
       StartDate = startDate,
       EndDate = endDate,
       People = people,
@@ -47,7 +45,6 @@ public class TripMenu
 
   public void Calculate()
   {
-    
 
     ShoppingListItem.Clear();
     // ShoppingListItem.AddRange(AllRecipes

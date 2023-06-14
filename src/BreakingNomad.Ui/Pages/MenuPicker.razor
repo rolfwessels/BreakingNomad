@@ -2,6 +2,9 @@
 @using BreakingNomad.Ui.Components.MenuMaker
 @using BreakingNomad.Ui.Components.MenuMaker.Models
 @using BreakingNomad.Ui.Components
+@using Food
+@using Grpc.Net.Client
+@using Grpc.Net.Client.Web
 @inject IMenuLookup MenuLookup
 
 <h2>Planning for up coming meals</h2>
@@ -37,6 +40,8 @@ else
   protected override async Task OnInitializedAsync()
   {
     _tripMenu = await MenuLookup.GetUpComingTrip();
+   
+    
   }
 
 
