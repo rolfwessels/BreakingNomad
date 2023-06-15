@@ -1,5 +1,6 @@
 using BreakingNomad.Ui.Components.MenuMaker.Models;
 using Food;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
 
@@ -15,6 +16,7 @@ internal class MenuLookup : IMenuLookup
     return allIngredients;
   }
 
+ 
   public List<MealRecipe> GetMeals()
   {
     var meals = new List<MealRecipe>();
@@ -24,6 +26,8 @@ internal class MenuLookup : IMenuLookup
     meals.AddRange(Dessert.All());
     return meals;
   }
+
+ 
 
   private IEnumerable<IngredientPerDay> IngredientsPerDayPerPerson()
   {
@@ -59,11 +63,7 @@ internal class MenuLookup : IMenuLookup
     var client = new Menu.MenuClient(channel);
     var result  = await client.GetPlannedTripsAsync(new PlannedTripsRequest());
 
-    var tripMenus = result.Trips.Select(x =>
-    {
-      var startDate = x.StartDate.ToDateTime(); 
-      return TripMenu.From(x.Id, x.Name, startDate,startDate.Add(x.Duration.ToTimeSpan()),x.People);
-    }).ToArray();
+    var tripMenus = result.Trips.Select(ToMenu).ToArray();
     
     foreach (var tripMenu in tripMenus)
     {
@@ -74,5 +74,62 @@ internal class MenuLookup : IMenuLookup
     return tripMenus;
   }
 
+  private TripMenu ToMenu(PlannedTripResponse x)
+  {
+    var startDate = x.StartDate.ToDateTime();
+    return TripMenu.From(x.Id, x.Name, startDate, startDate.Add(x.Duration.ToTimeSpan()), x.People);
+  }
+
+  public async Task<TripMenu> GetUpComingTrip(string id)
+  {
+    using var channel = GrpcChannel.ForAddress("http://localhost:5200/", new GrpcChannelOptions
+    {
+      HttpHandler = new GrpcWebHandler(new HttpClientHandler())
+    });
+    var client = new Menu.MenuClient(channel);
+    var plannedTrip = await client.GetPlannedTripAsync(new PlannedTripByIdRequest
+    {
+      Id = id
+    });
+    return ToMenu(plannedTrip);
+  }
+
+  public async Task Add(TripMenu trip)
+  {
+    using var channel = GrpcChannel.ForAddress("http://localhost:5200/", new GrpcChannelOptions
+    {
+      HttpHandler = new GrpcWebHandler(new HttpClientHandler())
+    });
+    var client = new Menu.MenuClient(channel);
+    var addPlannedTripAsync = await client.AddPlannedTripAsync(ToAdd(trip));
+    trip.Id = addPlannedTripAsync.Id;
+
+  }
+
+  private static AddPlannedTripRequest ToAdd(TripMenu trip)
+  {
+    return new AddPlannedTripRequest
+    {
+      Name = trip.Name,
+      StartDate = Timestamp.FromDateTime(trip.StartDate.ToUniversalTime()),
+      Duration = Duration.FromTimeSpan(TimeSpan.FromDays(trip.Days)),
+      People = trip.People
+    };
+  }
+
+  public async Task Update(TripMenu trip)
+  {
+    using var channel = GrpcChannel.ForAddress("http://localhost:5200/", new GrpcChannelOptions
+    {
+      HttpHandler = new GrpcWebHandler(new HttpClientHandler())
+    });
+    var client = new Menu.MenuClient(channel);
+    var addPlannedTripAsync = await client.UpdatePlannedTripAsync(new UpdatePlannedTripRequest () { Id = trip.Id,
+      Trip = ToAdd(trip)
+      } 
+    );
+    trip.Id = addPlannedTripAsync.Id;
+
+  }
   
 }

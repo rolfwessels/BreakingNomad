@@ -7,28 +7,30 @@ namespace BreakingNomad.Api.Tests.Data;
 
 public class MenuServiceTests
 {
-  private MenuService _sut;
+  private MenuService _sut = null!;
 
   [Test]
   public async Task AddPlannedTrip_GivenJsonStore_ShouldStoreToTheFile()
   {
     // arrange
     Setup();
-    var plannedTrip = new PlannedTrip() {
-      Id = "1", Name = "Test Trip" };
+    var plannedTrip = new AddPlannedTripRequest() { Name = "Test Trip" };
+    var plannedTrip2 = new AddPlannedTripRequest() { Name = "Test Trip2" };
     // action
-
-
+    
     var addPlannedTrip = await _sut.AddPlannedTrip(plannedTrip,null!);
     var plannedTrips = await _sut.GetPlannedTrips(new PlannedTripsRequest(),null!);
-    var removed = await _sut.RemovePlannedTrips(new RemovePlannedTripsRequest() { Id = addPlannedTrip.Id},null!);
+    var updated = await _sut.UpdatePlannedTrip(new UpdatePlannedTripRequest() { Id = addPlannedTrip.Id, Trip = plannedTrip2},null!);
+    var trip = await _sut.GetPlannedTrip(new PlannedTripByIdRequest() { Id = addPlannedTrip.Id},null!);
+    var removed = await _sut.RemovePlannedTrips(new PlannedTripByIdRequest() { Id = addPlannedTrip.Id},null!);
     var plannedTrips2 = await _sut.GetPlannedTrips(new PlannedTripsRequest(),null!);
-
     // assert
     addPlannedTrip.Id.Should().NotBe("1");
+    trip.Name.Should().Be(addPlannedTrip.Name);
     plannedTrips.Trips.Select(x=>x.Id).Should().Contain(addPlannedTrip.Id);
     removed.Success.Should().Be(true);
     plannedTrips2.Trips.Select(x=>x.Id).Should().NotContain(addPlannedTrip.Id);
+    updated.Name.Should().Be(plannedTrip2.Name);
   }
 
   [Test]
@@ -37,23 +39,22 @@ public class MenuServiceTests
     // arrange
     Setup();
     // action
+    var original = await _sut.GetPlannedTrips(new PlannedTripsRequest(),null!);
     var enumerable = Enumerable.Range(1,2).AsParallel().Select(async (x)=> {
-      var plannedTrip = new PlannedTrip() {
-        Id = "1", Name = "Test Trip "+x };
+      var plannedTrip = new AddPlannedTripRequest() { Name = "Test Trip "+x };
       var addPlannedTrip = await _sut.AddPlannedTrip(plannedTrip,null!);
-      var removed = await _sut.RemovePlannedTrips(new RemovePlannedTripsRequest() { Id = addPlannedTrip.Id},null!);
+      var removed = await _sut.RemovePlannedTrips(new PlannedTripByIdRequest() { Id = addPlannedTrip.Id},null!);
     } ).ToArray();
     await Task.WhenAll(enumerable);
   
 
     // assert
     var plannedTrips = await _sut.GetPlannedTrips(new PlannedTripsRequest(),null!);
-    plannedTrips.Trips.Count.Should().Be(0);
+    plannedTrips.Trips.Count.Should().Be(original.Trips.Count);
   }
 
   private void Setup()
   {
-    var jsonDataStore = new JsonDataStore<PlannedTrip>("C:\\temp\\DataStore", (id,trip) => trip.Id = id, trip => trip.Id); 
-    _sut = new MenuService(jsonDataStore);
+    _sut = new MenuService(new DataStoreFactory("C:\\temp\\DataStore").PlannedTrips);
   }
 }

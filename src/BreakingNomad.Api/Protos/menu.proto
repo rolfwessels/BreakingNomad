@@ -8,11 +8,13 @@ package ApiMenu;
 
 service Menu {
     rpc GetPlannedTrips(PlannedTripsRequest) returns(PlannedTripsResponse);
-    rpc AddPlannedTrip(PlannedTrip) returns(PlannedTrip);
-    rpc RemovePlannedTrips(RemovePlannedTripsRequest) returns(SuccessOrNotResponse);
+    rpc GetPlannedTrip(PlannedTripByIdRequest) returns(PlannedTripResponse);
+    rpc AddPlannedTrip(AddPlannedTripRequest) returns(PlannedTripResponse);
+    rpc UpdatePlannedTrip(UpdatePlannedTripRequest) returns(PlannedTripResponse);
+    rpc RemovePlannedTrips(PlannedTripByIdRequest) returns(SuccessOrNotResponse);
 }
 
-message RemovePlannedTripsRequest {
+message PlannedTripByIdRequest {
   string id = 1;
 }
 message SuccessOrNotResponse {
@@ -21,17 +23,29 @@ message SuccessOrNotResponse {
 
 message PlannedTripsRequest {}
 message PlannedTripsResponse {
-    repeated PlannedTrip trips = 1;
+    repeated PlannedTripResponse trips = 1;
+}
+message UpdatePlannedTripRequest {
+  string id = 1;
+  AddPlannedTripRequest trip = 2;
 }
 
-message PlannedTrip {
+
+message AddPlannedTripRequest {
+     string name = 2;
+    int32 people = 3;
+    google.protobuf.Timestamp startDate = 4;
+    google.protobuf.Duration duration = 5;
+    repeated MealsOfTheDay mealsOfTheDay = 6;
+}
+
+message PlannedTripResponse {
     string id = 1;
     string name = 2;
     int32 people = 3;
     google.protobuf.Timestamp startDate = 4;
     google.protobuf.Duration duration = 5;
     repeated MealsOfTheDay mealsOfTheDay = 6;
-
 }
 
 enum MEAL_TYPE {

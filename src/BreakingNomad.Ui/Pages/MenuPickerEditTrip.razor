@@ -5,8 +5,9 @@
 @using BreakingNomad.Ui.Components
 
 @inject IMenuLookup MenuLookup
+@inject NavigationManager NavigationManager
 
-<h2>Planning for up coming meals</h2>
+<h2>What are we having today</h2>
 
 @if (_trip == null)
 {
@@ -25,6 +26,10 @@ else
       <div class="card-body">
         <form @onsubmit="DelayRefresh">
           <div>
+            <label for="startDate">Name</label>
+            <input type="text" class="form-control" id="name" @bind="Name" required>
+          </div>
+          <div>
             <label for="startDate">Start Date</label>
             <input type="date" class="form-control" id="startDate" @bind="StartDate" required>
           </div>
@@ -36,10 +41,13 @@ else
             <label for="peopleCount">Number of People</label>
             <input type="number" class="form-control" id="peopleCount" @bind="People" required>
           </div>
+          @if (_isNew) {
+            <a @onclick="SaveAndContinue" class="btn btn-primary">Continue</a>
+          }
         </form>
       </div>
     </div>
-
+    @if (!_isNew) {
     <div class="card mt-4">
       <div class="card-header">
         <h5 class="card-title">Meal Schedule</h5>
@@ -74,6 +82,7 @@ else
         </table>
       </div>
     </div>
+    
     @if (_shoppingList != null)
     {
       <div class="card mt-4">
@@ -95,64 +104,112 @@ else
                 <td>@item.Category</td>
                 <td>@item.Name</td>
                 <td>@item.UnitValue</td>
-                
+
               </tr>
             }
             </tbody>
           </table>
         </div>
       </div>
-    }
+      }     }
   </div>
 }
 
 
 @code {
-    private TripMenu? _trip;
-    private List<MealRecipe>? _allowedValues;
-    private List<ShoppingListItem>? _shoppingList;
+  private TripMenu? _trip;
+  private List<MealRecipe>? _allowedValues;
+  private List<ShoppingListItem>? _shoppingList;
+  private bool _isNew = true;
 
 
-    [Parameter]
-    public string? Id { get; set; }
+  [Parameter]
+  public string? Id { get; set; }
 
-    protected override async Task OnInitializedAsync()
+  protected override async Task OnInitializedAsync()
+  {
+    _isNew = Id is null or "new";
+    if (_isNew)
     {
-        _trip = (await MenuLookup.GetUpComingTrip()).FirstOrDefault(x => x.Id == Id);
-        _allowedValues = MenuLookup.GetMeals();
-        _shoppingList = _trip?.ShoppingListItem.ToList();
+      _trip = new TripMenu();
     }
+    else
+    {
+      _trip = await MenuLookup.GetUpComingTrip(Id!);
+    }
+    _allowedValues = MenuLookup.GetMeals();
+    _shoppingList = _trip?.ShoppingListItem.ToList();
+  }
 
 
   private List<MealRecipe> Lists(MealRecipe? recipe)
-    {
+  {
     var stringList = new List<MealRecipe>();
     if (recipe != null) stringList.Add(recipe);
-        return stringList;
-    }
+    return stringList;
+  }
 
-    private void DelayRefresh()
-    {
-      _trip?.Calculate();
-      _shoppingList = _trip?.ShoppingListItem.ToList();
-    }
+  private void DelayRefresh()
+  {
+    _trip?.Calculate();
+    _shoppingList = _trip?.ShoppingListItem.ToList();
+    if (!_isNew) 
+      MenuLookup.Update(_trip!);
+  }
 
-    public DateTime? StartDate
+  public DateTime? StartDate
+  {
+    get => _trip?.StartDate;
+    set
     {
-        get => _trip?.StartDate;
-        set { value?.With(x => _trip!.StartDate = x); DelayRefresh(); }
+      value?.With(x => _trip!.StartDate = x);
+      if (_trip != null && _trip.EndDate < _trip.StartDate)
+      {
+        _trip.EndDate = _trip.StartDate.AddDays(1);
+      }
+      DelayRefresh();
     }
+  }
 
-    public DateTime? EndDate
+  public DateTime? EndDate
+  {
+    get => _trip?.EndDate;
+    set
     {
-        get => _trip?.EndDate;
-        set { value?.With(x => _trip!.EndDate = x); DelayRefresh(); }
+      value?.With(x => _trip!.EndDate = x);
+      DelayRefresh();
     }
+  }
 
-    public int People
+  public string? Name
+  {
+    get => _trip?.Name;
+    set
     {
-        get => _trip?.People??1;
-        set {_trip!.People = value; DelayRefresh(); }
-        }
+      value?.With(x => _trip!.Name = x);
+      DelayRefresh();
+    }
+  }
+
+  public int People
+  {
+    get => _trip?.People ?? 1;
+    set
+    {
+      _trip!.People = value;
+      DelayRefresh();
+    }
+  }
+
+  private async Task SaveAndContinue()
+  {
+    if (_trip != null)
+    {
+      await MenuLookup.Add(_trip);
+      NavigationManager.NavigateTo($"menupicker/{_trip.Id}/update");
+      _isNew = false;
+    }
+    
+  }
 
 }

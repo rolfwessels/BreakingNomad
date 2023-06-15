@@ -2,8 +2,10 @@ using System.Reflection;
 using BreakingNomad.Api.Data;
 using BreakingNomad.Api.Helper;
 
-
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped(_=> new DataStoreFactory(@"D:\Work\Home\BreakingNomad\var\sampledata"));
+builder.Services.AddScoped(provider=> new MenuService(provider.GetRequiredService<DataStoreFactory>().PlannedTrips));
+
 builder.Services.AddGrpc(options =>
 {
   options.EnableDetailedErrors = true;
@@ -45,3 +47,4 @@ app.UseEndpoints(endpoints => {
 app.MapGet("/", () => $"Welcome to Breaking nomad {Assembly.GetEntryAssembly()!.GetName().Version}");
 
 app.Run();
+
