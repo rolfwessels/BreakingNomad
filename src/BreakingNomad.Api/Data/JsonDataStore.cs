@@ -1,10 +1,11 @@
 using System.Text.Json;
+using BreakingNomad.Api.Helper;
 
 namespace BreakingNomad.Api.Data;
 
 public class JsonDataStore<TDoModel>
 {
-  private static readonly Mutex _mutex = new Mutex(true,"MutexDemo1");
+  private static readonly Semaphore _mutex = new Semaphore(1,1);
   private readonly Action<string, TDoModel> _addId;
   private readonly Func<TDoModel, string> _getId;
   private readonly string _folder;
@@ -28,6 +29,19 @@ public class JsonDataStore<TDoModel>
      return request;
     });
     
+  }
+
+  public Task<TDoModel> Update(string id, TDoModel request)
+  {
+    return Wrap (async () => {
+      var readJsonFile =await ReadJsonFile();
+      var found = readJsonFile.FirstOrDefault(x=>_getId(x) == id);
+      if (found == null) throw new Exception("Not Found");
+      readJsonFile.Remove(found);
+      readJsonFile.Add(request);
+      await WriteToFile(readJsonFile);
+      return request;
+    });
   }
 
   public async Task<List<TDoModel>> GetAll()
@@ -57,7 +71,7 @@ public class JsonDataStore<TDoModel>
     finally
     {
       //Console.WriteLine("Exit: " + Thread.CurrentThread.ManagedThreadId + " is Completed its task");
-      _mutex.ReleaseMutex();  
+      _mutex.Release();  
     }
   }
 
@@ -67,7 +81,7 @@ public class JsonDataStore<TDoModel>
     {
       Directory.CreateDirectory(_folder);
     }
-    var serialize = JsonSerializer.Serialize(readJsonFile);
+    var serialize = JsonSerializer.Serialize(readJsonFile,JsonSerializeHelper.DefaultIndented);
     await File.WriteAllTextAsync(_file, serialize);
   }
 
@@ -78,9 +92,6 @@ public class JsonDataStore<TDoModel>
       return new List<TDoModel>();
     }
     var readAllTextAsync = await File.ReadAllTextAsync(_file);
-    return JsonSerializer.Deserialize<List<TDoModel>>(readAllTextAsync)!;
+    return JsonSerializer.Deserialize<List<TDoModel>>(readAllTextAsync,JsonSerializeHelper.DefaultIndented)!;
   }
-
-
-  
 }

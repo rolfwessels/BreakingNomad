@@ -2,14 +2,11 @@
 @using BreakingNomad.Ui.Components.MenuMaker
 @using BreakingNomad.Ui.Components.MenuMaker.Models
 @using BreakingNomad.Ui.Components
-@using Food
-@using Grpc.Net.Client
-@using Grpc.Net.Client.Web
 @inject IMenuLookup MenuLookup
-@inject NavigationManager NavigationManager
 
-<h2>Planning for up coming meals</h2>
-
+<div>
+  <h2 class="d-inline">Planning for up coming meals</h2><a  href="menupicker/new/update" class="btn btn-primary mx-2">Add</a>
+</div>
 @if (_tripMenu == null)
 {
   <p>
@@ -19,7 +16,7 @@
 else
 {
   <div class="row mt-4">
-    <a href="menupicker/new/update" class="btn btn-primary">Add</a>
+    
     @foreach (var trip in _tripMenu)
     {
       <div class="col-sm-6 mb-4">

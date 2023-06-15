@@ -20,13 +20,13 @@ else
   <div class="row mt-4">
     <div class="card">
       <div class="card-header">
-        <h5 class="card-title">Trip Details</h5>
-        @_trip.Name
+        <h5 class="card-title">@(_trip.Name == "" ? "Trip details" : _trip.Name)</h5>
+        @_trip.Description()
       </div>
       <div class="card-body">
         <form @onsubmit="DelayRefresh">
           <div>
-            <label for="startDate">Name</label>
+            <label for="startDate">Name</label> 
             <input type="text" class="form-control" id="name" @bind="Name" required>
           </div>
           <div>

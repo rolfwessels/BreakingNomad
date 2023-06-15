@@ -19,9 +19,10 @@ public class MenuServiceTests
     // action
     
     var addPlannedTrip = await _sut.AddPlannedTrip(plannedTrip,null!);
+    var trip = await _sut.GetPlannedTrip(new PlannedTripByIdRequest() { Id = addPlannedTrip.Id},null!);
     var plannedTrips = await _sut.GetPlannedTrips(new PlannedTripsRequest(),null!);
     var updated = await _sut.UpdatePlannedTrip(new UpdatePlannedTripRequest() { Id = addPlannedTrip.Id, Trip = plannedTrip2},null!);
-    var trip = await _sut.GetPlannedTrip(new PlannedTripByIdRequest() { Id = addPlannedTrip.Id},null!);
+    var getAfterUpdate = await _sut.GetPlannedTrip(new PlannedTripByIdRequest() { Id = addPlannedTrip.Id},null!);
     var removed = await _sut.RemovePlannedTrips(new PlannedTripByIdRequest() { Id = addPlannedTrip.Id},null!);
     var plannedTrips2 = await _sut.GetPlannedTrips(new PlannedTripsRequest(),null!);
     // assert
@@ -30,6 +31,7 @@ public class MenuServiceTests
     plannedTrips.Trips.Select(x=>x.Id).Should().Contain(addPlannedTrip.Id);
     removed.Success.Should().Be(true);
     plannedTrips2.Trips.Select(x=>x.Id).Should().NotContain(addPlannedTrip.Id);
+    getAfterUpdate.Name.Should().Be(plannedTrip2.Name);
     updated.Name.Should().Be(plannedTrip2.Name);
   }
 
@@ -43,11 +45,9 @@ public class MenuServiceTests
     var enumerable = Enumerable.Range(1,2).AsParallel().Select(async (x)=> {
       var plannedTrip = new AddPlannedTripRequest() { Name = "Test Trip "+x };
       var addPlannedTrip = await _sut.AddPlannedTrip(plannedTrip,null!);
-      var removed = await _sut.RemovePlannedTrips(new PlannedTripByIdRequest() { Id = addPlannedTrip.Id},null!);
+      await _sut.RemovePlannedTrips(new PlannedTripByIdRequest { Id = addPlannedTrip.Id},null!);
     } ).ToArray();
     await Task.WhenAll(enumerable);
-  
-
     // assert
     var plannedTrips = await _sut.GetPlannedTrips(new PlannedTripsRequest(),null!);
     plannedTrips.Trips.Count.Should().Be(original.Trips.Count);

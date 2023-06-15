@@ -1,1 +1,53 @@
-[{"Id":"df91d087fc9f4ab7af8be963c6209d50","Name":"2 days away with 1 people","People":1,"StartDate":{"Seconds":1686917870,"Nanos":749000000},"Duration":{"Seconds":172800,"Nanos":0},"MealsOfTheDay":[]},{"Id":"851c923201714a868414caa3d8763ba0","Name":"asdasd","People":1,"StartDate":{"Seconds":1686917893,"Nanos":374000000},"Duration":{"Seconds":172800,"Nanos":0},"MealsOfTheDay":[]}]
+[
+  {
+    "id": "60bbe70e0bb34b2b97d06b996af45ec0",
+    "name": "Nothing",
+    "people": 2,
+    "startDate": {
+      "seconds": 1686920218,
+      "nanos": 336000000
+    },
+    "duration": {
+      "seconds": 259200
+    },
+    "mealsOfTheDay": []
+  },
+  {
+    "id": "dc7f0409a1784302bf0b5a95db5c1bf3",
+    "name": "OKay",
+    "people": 2,
+    "startDate": {
+      "seconds": 1686920709,
+      "nanos": 612000000
+    },
+    "duration": {
+      "seconds": 172800
+    },
+    "mealsOfTheDay": []
+  },
+  {
+    "id": "fda5d262e0234ca69fbc691f570141a9",
+    "name": "Amazon",
+    "people": 3,
+    "startDate": {
+      "seconds": 1686920930,
+      "nanos": 278000000
+    },
+    "duration": {
+      "seconds": 259200
+    },
+    "mealsOfTheDay": []
+  },
+  {
+    "id": "bb3a7936bc324b16ba7de63e2780aeeb",
+    "name": "Sample",
+    "people": 2,
+    "startDate": {
+      "seconds": 1686952800
+    },
+    "duration": {
+      "seconds": 172800
+    },
+    "mealsOfTheDay": []
+  }
+]

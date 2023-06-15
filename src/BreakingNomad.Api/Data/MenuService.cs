@@ -32,6 +32,7 @@ public class MenuService : Menu.MenuBase
       Duration = request.Duration,
       People = request.People
     };
+    Apply(plannedTripResponse, request);
     return await _dataStore.Add(plannedTripResponse);
   }
 
@@ -40,12 +41,17 @@ public class MenuService : Menu.MenuBase
   {
     var all = await _dataStore.GetAll();
     var found = all.FirstOrDefault(x => x.Id == request.Id) ?? throw new Exception("Not Found");
-    found.Name = request.Trip.Name;
-    found.StartDate = request.Trip.StartDate;
-    found.Duration = request.Trip.Duration;
-    found.People = request.Trip.People;
-    return found;
+    Apply(found, request.Trip);
+    var plannedTripResponse = await _dataStore.Update(request.Id,found);
+    return plannedTripResponse;
+  }
 
+  private static void Apply(PlannedTripResponse found, AddPlannedTripRequest addPlannedTripRequest)
+  {
+    found.Name = addPlannedTripRequest.Name;
+    found.StartDate = addPlannedTripRequest.StartDate;
+    found.Duration = addPlannedTripRequest.Duration;
+    found.People = addPlannedTripRequest.People;
   }
 
   public override async Task<PlannedTripResponse> GetPlannedTrip(PlannedTripByIdRequest request,

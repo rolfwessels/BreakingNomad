@@ -19,7 +19,8 @@ builder.Services.AddCors(setupAction =>
     policy.AllowAnyHeader()
       .AllowAnyOrigin()
       .AllowAnyMethod()
-      .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
+      .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding")
+      .SetPreflightMaxAge(TimeSpan.FromMinutes(20));
   });
 });
 

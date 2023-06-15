@@ -18,8 +18,13 @@ public class TripMenu
 
   public string Name
   {
-    get => _name??$"{Days} days away with {People} people";
+    get => _name??"";
     set => _name = value;
+  }
+
+  public string Description()
+  {
+    return $"{Days} days away with {People} people";
   }
 
   public int Days => (int)Math.Ceiling((EndDate - StartDate).TotalDays);
