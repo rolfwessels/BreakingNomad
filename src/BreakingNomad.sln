@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other", "Other", "{EE130919
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BreakingNomad.Api.Tests", "..\tests\BreakingNomad.Api.Tests\BreakingNomad.Api.Tests.csproj", "{C732C2B7-A159-49A0-9077-C6F080471002}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BreakingNomad.Shared", "BreakingNomad.Shared\BreakingNomad.Shared.csproj", "{FE1855A4-845A-4DE2-8BC8-F3ADB21F01C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{C732C2B7-A159-49A0-9077-C6F080471002}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C732C2B7-A159-49A0-9077-C6F080471002}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C732C2B7-A159-49A0-9077-C6F080471002}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE1855A4-845A-4DE2-8BC8-F3ADB21F01C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE1855A4-845A-4DE2-8BC8-F3ADB21F01C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE1855A4-845A-4DE2-8BC8-F3ADB21F01C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE1855A4-845A-4DE2-8BC8-F3ADB21F01C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

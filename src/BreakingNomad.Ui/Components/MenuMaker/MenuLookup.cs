@@ -1,10 +1,12 @@
+using BreakingNomad.Shared;
 using BreakingNomad.Ui.Components.MenuMaker.Models;
 using Bumbershoot.Utilities.Helpers;
 using Food;
-using Google.Protobuf.Collections;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
+using ProtoBuf.Grpc.Client;
+using PlannedTripResponse = Food.PlannedTripResponse;
 
 namespace BreakingNomad.Ui.Components.MenuMaker;
 
@@ -57,14 +59,25 @@ internal class MenuLookup : IMenuLookup
 
   public async Task<TripMenu[]> GetUpComingTrip()
   {
-    using var channel = GrpcChannel.ForAddress("http://localhost:5200/", new GrpcChannelOptions
+
+    var handler = new Grpc.Net.Client.Web.GrpcWebHandler(Grpc.Net.Client.Web.GrpcWebMode.GrpcWeb, new HttpClientHandler());
+    using (var channel = Grpc.Net.Client.GrpcChannel.ForAddress("https://localhost:5200/", new Grpc.Net.Client.GrpcChannelOptions() { HttpClient = new HttpClient(handler) }))
     {
-      HttpHandler = new GrpcWebHandler(new HttpClientHandler())
-    });
-    var client = new Menu.MenuClient(channel);
-    var result = await client.GetPlannedTripsAsync(new PlannedTripsRequest());
-    var tripMenus = result.Trips.Select(ToMenu).ToArray();
-    return tripMenus;
+      var testFacade = channel.CreateGrpcService<IGreeterService>();
+      await testFacade.SayHelloAsync(new HelloRequest() { Name = "asd"});
+    }
+
+    return Array.Empty<TripMenu>();
+
+    // using var channel = GrpcChannel.ForAddress("http://localhost:5200/", new GrpcChannelOptions
+    // {
+    //   HttpHandler = new GrpcWebHandler(new HttpClientHandler())
+    // });
+    // var client = new Menu.MenuClient(channel);
+    // var result = await client.GetPlannedTripsAsync(new PlannedTripsRequest());
+    // var tripMenus = result.Trips.Select(ToMenu).ToArray();
+    //
+    // return tripMenus;
   }
 
   private TripMenu ToMenu(PlannedTripResponse tripData)
@@ -79,11 +92,15 @@ internal class MenuLookup : IMenuLookup
 
   public async Task<TripMenu> GetUpComingTrip(string id)
   {
+   
+
     using var channel = GrpcChannel.ForAddress("http://localhost:5200/", new GrpcChannelOptions
     {
       HttpHandler = new GrpcWebHandler(new HttpClientHandler())
     });
     var client = new Menu.MenuClient(channel);
+   
+
     var plannedTrip = await client.GetPlannedTripAsync(new PlannedTripByIdRequest
     {
       Id = id
