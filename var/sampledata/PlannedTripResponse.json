@@ -1,0 +1,61 @@
+[
+  {
+    "id": "fda5d262e0234ca69fbc691f570141a9",
+    "name": "Angola2",
+    "people": 2,
+    "startDate": {
+      "seconds": 1687298400
+    },
+    "duration": {
+      "seconds": 345600
+    },
+    "mealsOfTheDay": [
+      {
+        "meal": "Lunch",
+        "options": [
+          "woolies salad"
+        ]
+      },
+      {
+        "meal": "Dinner",
+        "options": [
+          "just rice"
+        ]
+      },
+      {
+        "day": 1,
+        "options": [
+          "sweet baked potato"
+        ]
+      },
+      {
+        "day": 1,
+        "meal": "Dinner",
+        "options": [
+          "woolies salad"
+        ]
+      },
+      {
+        "day": 2,
+        "meal": "Dinner",
+        "options": [
+          "camembert with bread"
+        ]
+      },
+      {
+        "day": 3,
+        "meal": "Dinner",
+        "options": [
+          "camembert with bread"
+        ]
+      },
+      {
+        "day": 4,
+        "meal": "Dinner",
+        "options": [
+          "potato chips"
+        ]
+      }
+    ]
+  }
+]

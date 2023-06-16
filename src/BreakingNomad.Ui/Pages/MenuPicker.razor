@@ -1,0 +1,46 @@
+@page "/menupicker"
+@using BreakingNomad.Ui.Components.MenuMaker
+@using BreakingNomad.Ui.Components.MenuMaker.Models
+@using BreakingNomad.Ui.Components
+@inject IMenuLookup MenuLookup
+
+<div>
+  <h2 class="d-inline">Planning for up coming meals</h2><a  href="menupicker/new/update" class="btn btn-primary mx-2">Add</a>
+</div>
+@if (_tripMenu == null)
+{
+  <p>
+    <em>Loading...</em>
+  </p>
+}
+else
+{
+  <div class="row mt-4">
+    
+    @foreach (var trip in _tripMenu)
+    {
+      <div class="col-sm-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">@trip.Name</h5>
+            <p class="card-text">@trip.StartDate.ToString(FormattingConstants.DateAndDay) - @trip.EndDate.ToString(FormattingConstants.DateAndDay) @trip.Days days</p>
+          <a href="menupicker/@trip.Id/update" class="btn btn-primary">Edit</a>
+          </div>
+        </div>
+      </div>
+    }
+
+  </div>
+}
+
+
+@code {
+  private TripMenu[]? _tripMenu;
+
+  protected override async Task OnInitializedAsync()
+  {
+    _tripMenu = await MenuLookup.GetUpComingTrip();
+  }
+
+
+}

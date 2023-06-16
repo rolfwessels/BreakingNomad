@@ -1,0 +1,108 @@
+@using Bumbershoot.Utilities.Helpers
+@using Food
+@using BreakingNomad.Ui.Components
+@using BreakingNomad.Ui.Components.MenuMaker.Models
+
+<div >
+  @foreach (var tag in MappedItems)
+  {
+    <span class="badge bg-secondary" style="background-color: @ToColor(tag)">
+      @tag.Name
+      <span @onclick="() => RemoveItem(tag)" class="oi oi-delete"></span>
+    </span>
+  }
+  <a @onclick="Add">
+    <span class="badge rounded-pill bg-primary-subtle mx-3">
+
+      <span class="oi oi-plus"></span>
+
+    </span>
+  </a>
+  <ItemPickerModal @ref="Modal">
+    <Title>Please select a meal</Title>
+    <Body>
+    @foreach (var tag in AllowedItems.Where(x => !MappedItems.Contains(x)).OrderByDescending(x => x.MealType == MealType).ThenBy(x => x.MealType).ThenBy(x => x.Name))
+    {
+      <a @onclick="() => AddToList(tag)">
+        <span class="badge bg-secondary mx-3" style="background-color: @ToColor(tag)">
+          @tag.Name
+        </span>
+      </a>
+    }
+    </Body>
+    <Footer>
+      <button type="button" @onclick="CloseModal" class="btn btn-primary">Close</button>
+    </Footer>
+  </ItemPickerModal>
+
+</div>
+
+@code {
+
+  private ItemPickerModal? Modal { get; set; }
+
+  [Parameter]
+  public Action? CallBack { get; set; }
+
+  [Parameter]
+  public MealsOfTheDay SelectedItems { get; set; } = new();
+
+  [Parameter]
+  public List<MealRecipe> AllowedItems { get; set; } = new();
+  
+  [Parameter]
+  public MealType? MealType { get; set; }
+
+  public List<MealRecipe> MappedItems { get; set; } = new();
+  
+  protected override void OnInitialized()
+  {
+    
+    
+  }
+  
+  protected override void OnParametersSet()
+  {
+    Console.Out.WriteLine("SelectedItems.Options" + SelectedItems.Options.StringJoin());
+    MappedItems = AllowedItems.Where(x => SelectedItems.Options.Contains(x.Key)).ToList();
+  }
+
+
+
+  private void RemoveItem(MealRecipe tag)
+  {
+    MappedItems.Remove(tag);
+    SetSelected();
+  }
+
+  private void SetSelected()
+  {
+    SelectedItems.Options.Clear();
+    SelectedItems.Options.Add(MappedItems.Select(x => x.Key).ToList());
+    Console.Out.WriteLine("Setting "+SelectedItems.Options.StringJoin());
+    CallBack?.Invoke();
+  }
+
+  private string ToColor(MealRecipe tag)
+  {
+    return tag.MealType.ToColor();
+  }
+
+  private void Add()
+  {
+    Modal?.Open();
+  }
+
+  private void CloseModal()
+  {
+    Modal?.Close();
+  }
+
+  private void AddToList(MealRecipe tag)
+  {
+    MappedItems.Add(tag);
+    SetSelected();
+    Modal?.Close();
+  }
+
+}

@@ -7,9 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bumbershoot.Utilities" Version="1.0.15" />
     <PackageReference Include="Cronos" Version="0.7.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+      <PackageReference Include="Grpc.AspNetCore" Version="2.46.0" />
+      <PackageReference Include="Grpc.AspNetCore.Web" Version="2.46.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="Protos\menu.proto" GrpcServices="Server" />
+  </ItemGroup>
+
 
 </Project>

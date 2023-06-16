@@ -49,5 +49,8 @@ public class HolidayLookup
   public record Holiday(DateTime Date, string Day, string Name);
 
 
-  public record Weekend(DateTime StartDate, DateTime EndDate, bool RequiresExtraDay , string Name);
+  public record Weekend(DateTime StartDate, DateTime EndDate, bool RequiresExtraDay, string Name)
+  {
+    public int Days => (int)(EndDate - StartDate).TotalDays+1;
+  }
 }
