@@ -1,5 +1,6 @@
 @page "/menupicker/{id}/update"
 @using Bumbershoot.Utilities.Helpers
+@using Food
 @using BreakingNomad.Ui.Components.MenuMaker
 @using BreakingNomad.Ui.Components.MenuMaker.Models
 @using BreakingNomad.Ui.Components
@@ -26,7 +27,7 @@ else
       <div class="card-body">
         <form @onsubmit="DelayRefresh">
           <div>
-            <label for="startDate">Name</label> 
+            <label for="startDate">Name</label>
             <input type="text" class="form-control" id="name" @bind="Name" required>
           </div>
           <div>
@@ -41,77 +42,80 @@ else
             <label for="peopleCount">Number of People</label>
             <input type="number" class="form-control" id="peopleCount" @bind="People" required>
           </div>
-          @if (_isNew) {
+          @if (_isNew)
+          {
             <a @onclick="SaveAndContinue" class="btn btn-primary">Continue</a>
           }
         </form>
       </div>
     </div>
-    @if (!_isNew) {
-    <div class="card mt-4">
-      <div class="card-header">
-        <h5 class="card-title">Meal Schedule</h5>
-      </div>
-      <div class="card-body">
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th style="width: 10%">Date</th>
-            <th style="width: 20%">Breakfast</th>
-            <th style="width: 20%">Lunch</th>
-            <th style="width: 20%">Dinner</th>
-          </tr>
-          </thead>
-          <tbody>
-          @foreach (var day in _trip.DayMeals)
-          {
-            <tr>
-              <td >@day.Day.ToString(FormattingConstants.DateAndDay)</td>
-              <td>
-                <ItemPicker AllowedItems="_allowedValues" MealType="@MealType.Breakfast" SelectedItems="day.Breakfast"></ItemPicker>
-              </td>
-              <td>
-                <ItemPicker AllowedItems="_allowedValues" MealType="@MealType.Lunch" SelectedItems="day.Lunch"></ItemPicker>
-              </td>
-              <td>
-                <ItemPicker AllowedItems="_allowedValues" MealType="@MealType.Dinner" SelectedItems="day.Dinner"></ItemPicker>
-              </td>
-            </tr>
-          }
-          </tbody>
-        </table>
-      </div>
-    </div>
-    
-    @if (_shoppingList != null)
+    @if (!_isNew)
     {
       <div class="card mt-4">
         <div class="card-header">
-          <h5 class="card-title">Shopping list</h5>
+          <h5 class="card-title">Meal Schedule</h5>
         </div>
         <div class="card-body">
           <table class="table table-striped">
             <thead>
             <tr>
-              <th style="width: 20%">Description</th>
-              <th style="width: 20%">Quantity</th>
+              <th style="width: 10%">Date</th>
+              <th style="width: 20%">Breakfast</th>
+              <th style="width: 20%">Lunch</th>
+              <th style="width: 20%">Dinner</th>
             </tr>
             </thead>
             <tbody>
-            @foreach (var item in _shoppingList)
+            @foreach (var (count,day) in _trip.Dates)
             {
               <tr>
-                <td>@item.Category</td>
-                <td>@item.Name</td>
-                <td>@item.UnitValue</td>
-
+                <td>@day.ToString(FormattingConstants.DateAndDay)</td>
+                <td>
+                  <ItemPicker CallBack="OnChange" AllowedItems="_allowedValues" MealType="@MealType.Breakfast" SelectedItems="_trip.GetOrAdd(count, MEAL_TYPE.Breakfast)"></ItemPicker>
+                </td>
+                <td>
+                  <ItemPicker CallBack="OnChange" AllowedItems="_allowedValues" MealType="@MealType.Lunch" SelectedItems="_trip.GetOrAdd(count, MEAL_TYPE.Lunch)"></ItemPicker>
+                </td>
+                <td>
+                  <ItemPicker CallBack="OnChange" AllowedItems="_allowedValues" MealType="@MealType.Dinner" SelectedItems="_trip.GetOrAdd(count, MEAL_TYPE.Dinner)"></ItemPicker>
+                </td>
               </tr>
             }
             </tbody>
           </table>
         </div>
       </div>
-      }     }
+
+      @if (_shoppingList != null)
+      {
+        <div class="card mt-4">
+          <div class="card-header">
+            <h5 class="card-title">Shopping list</h5>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th style="width: 20%">Description</th>
+                <th style="width: 20%">Quantity</th>
+              </tr>
+              </thead>
+              <tbody>
+              @foreach (var item in _shoppingList)
+              {
+                <tr>
+                  <td>@item.Category</td>
+                  <td>@item.Name</td>
+                  <td>@item.UnitValue</td>
+
+                </tr>
+              }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      }
+    }
   </div>
 }
 
@@ -136,9 +140,12 @@ else
     else
     {
       _trip = await MenuLookup.GetUpComingTrip(Id!);
+      _trip.MealsOfTheDay.Where(x=>x.Options.Count >0).Dump("Found");
     }
     _allowedValues = MenuLookup.GetMeals();
     _shoppingList = _trip?.ShoppingListItem.ToList();
+    await Console.Out.WriteLineAsync("Loaded ");
+    StateHasChanged();
   }
 
 
@@ -153,7 +160,7 @@ else
   {
     _trip?.Calculate();
     _shoppingList = _trip?.ShoppingListItem.ToList();
-    if (!_isNew) 
+    if (!_isNew)
       MenuLookup.Update(_trip!);
   }
 
@@ -209,7 +216,11 @@ else
       NavigationManager.NavigateTo($"menupicker/{_trip.Id}/update");
       _isNew = false;
     }
-    
+  }
+
+  private void OnChange()
+  {
+    DelayRefresh();
   }
 
 }

@@ -18,7 +18,7 @@ public class Side
   
   public static MealRecipe SweetPotatoes = new(
     MealType.Side,
-    "Sweet Baked Potatoe",
+    "Sweet Baked Potato",
     new []
     {
       BasicIngredients.From("Sweet Potatoes", 1m, "unit"),

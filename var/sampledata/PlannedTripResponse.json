@@ -1,53 +1,61 @@
 [
   {
-    "id": "60bbe70e0bb34b2b97d06b996af45ec0",
-    "name": "Nothing",
-    "people": 2,
-    "startDate": {
-      "seconds": 1686920218,
-      "nanos": 336000000
-    },
-    "duration": {
-      "seconds": 259200
-    },
-    "mealsOfTheDay": []
-  },
-  {
-    "id": "dc7f0409a1784302bf0b5a95db5c1bf3",
-    "name": "OKay",
-    "people": 2,
-    "startDate": {
-      "seconds": 1686920709,
-      "nanos": 612000000
-    },
-    "duration": {
-      "seconds": 172800
-    },
-    "mealsOfTheDay": []
-  },
-  {
     "id": "fda5d262e0234ca69fbc691f570141a9",
-    "name": "Amazon",
-    "people": 3,
-    "startDate": {
-      "seconds": 1686920930,
-      "nanos": 278000000
-    },
-    "duration": {
-      "seconds": 259200
-    },
-    "mealsOfTheDay": []
-  },
-  {
-    "id": "bb3a7936bc324b16ba7de63e2780aeeb",
-    "name": "Sample",
+    "name": "Angola2",
     "people": 2,
     "startDate": {
-      "seconds": 1686952800
+      "seconds": 1687298400
     },
     "duration": {
-      "seconds": 172800
+      "seconds": 345600
     },
-    "mealsOfTheDay": []
+    "mealsOfTheDay": [
+      {
+        "meal": "Lunch",
+        "options": [
+          "woolies salad"
+        ]
+      },
+      {
+        "meal": "Dinner",
+        "options": [
+          "just rice"
+        ]
+      },
+      {
+        "day": 1,
+        "options": [
+          "sweet baked potato"
+        ]
+      },
+      {
+        "day": 1,
+        "meal": "Dinner",
+        "options": [
+          "woolies salad"
+        ]
+      },
+      {
+        "day": 2,
+        "meal": "Dinner",
+        "options": [
+          "camembert with bread"
+        ]
+      },
+      {
+        "day": 3,
+        "meal": "Dinner",
+        "options": [
+          "camembert with bread"
+        ]
+      },
+      {
+        "day": 4,
+        "meal": "Dinner",
+        "options": [
+          "potato chips"
+        ]
+      }
+    ]
   }
 ]

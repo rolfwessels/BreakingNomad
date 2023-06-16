@@ -1,5 +1,6 @@
 using System.Text.Json;
 using BreakingNomad.Api.Helper;
+using Bumbershoot.Utilities.Helpers;
 
 namespace BreakingNomad.Api.Data;
 
@@ -92,6 +93,7 @@ public class JsonDataStore<TDoModel>
       return new List<TDoModel>();
     }
     var readAllTextAsync = await File.ReadAllTextAsync(_file);
-    return JsonSerializer.Deserialize<List<TDoModel>>(readAllTextAsync,JsonSerializeHelper.DefaultIndented)!;
+    Console.Out.WriteLine("readAllTextAsync"+readAllTextAsync);
+    return JsonSerializer.Deserialize<List<TDoModel>>(readAllTextAsync,JsonSerializeHelper.Default)!;
   }
 }

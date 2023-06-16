@@ -30,7 +30,6 @@ message UpdatePlannedTripRequest {
   AddPlannedTripRequest trip = 2;
 }
 
-
 message AddPlannedTripRequest {
      string name = 2;
     int32 people = 3;

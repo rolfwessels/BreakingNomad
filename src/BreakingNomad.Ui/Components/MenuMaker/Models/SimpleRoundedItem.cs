@@ -8,6 +8,7 @@ public class SimpleRoundedItem
     UnitValue = unitValue;
     Unit = unit;
     InUnit = inUnit;
+    Key = $"{Name}-{Unit}".ToLower();
   }
 
   public string Name { get; }
@@ -29,15 +30,19 @@ public class SimpleRoundedItem
   {
     return new SimpleRoundedItem(Name, UnitValue * amount, Unit, InUnit);
   }
+
+  public string Key { get; }
+
 }
 
 public record Ingredient(FoodCategory Category, string Name, ValueWithUnitOfMeasure Value)
-{
-
+{ 
 }
 
-public record MealRecipe(MealType MealType, string Name,Ingredient[] Ingredients);
-
+public record MealRecipe(MealType MealType, string Name,Ingredient[] Ingredients)
+{
+  public string Key { get; } = $"{Name}".ToLower();
+}
 
 public record IngredientPerDay(decimal Amount, Ingredient Ingredient)
 {

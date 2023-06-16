@@ -1,3 +1,4 @@
+using Bumbershoot.Utilities.Helpers;
 using Food;
 using Grpc.Core;
 
@@ -52,13 +53,15 @@ public class MenuService : Menu.MenuBase
     found.StartDate = addPlannedTripRequest.StartDate;
     found.Duration = addPlannedTripRequest.Duration;
     found.People = addPlannedTripRequest.People;
+    found.MealsOfTheDay.Clear();
+    found.MealsOfTheDay.AddRange(addPlannedTripRequest.MealsOfTheDay);
   }
 
   public override async Task<PlannedTripResponse> GetPlannedTrip(PlannedTripByIdRequest request,
     ServerCallContext context)
   {
     var plannedTripResponses = await _dataStore.GetAll();
-    return plannedTripResponses.FirstOrDefault(x => x.Id == request.Id) ?? throw new Exception("Not Found");
+    return plannedTripResponses.FirstOrDefault(x => x.Id == request.Id).Dump("FromLoad") ?? throw new Exception("Not Found");
   }
 
   public override async Task<SuccessOrNotResponse> RemovePlannedTrips(PlannedTripByIdRequest request,

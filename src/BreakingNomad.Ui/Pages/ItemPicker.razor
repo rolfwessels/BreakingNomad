@@ -1,9 +1,10 @@
+@using Bumbershoot.Utilities.Helpers
+@using Food
 @using BreakingNomad.Ui.Components
 @using BreakingNomad.Ui.Components.MenuMaker.Models
-@inject IJSRuntime JsRuntime
 
 <div >
-  @foreach (var tag in SelectedItems)
+  @foreach (var tag in MappedItems)
   {
     <span class="badge bg-secondary" style="background-color: @ToColor(tag)">
       @tag.Name
@@ -20,8 +21,7 @@
   <ItemPickerModal @ref="Modal">
     <Title>Please select a meal</Title>
     <Body>
-
-    @foreach (var tag in AllowedItems.Where(x => !SelectedItems.Contains(x)).OrderByDescending(x => x.MealType == MealType).ThenBy(x => x.MealType).ThenBy(x => x.Name))
+    @foreach (var tag in AllowedItems.Where(x => !MappedItems.Contains(x)).OrderByDescending(x => x.MealType == MealType).ThenBy(x => x.MealType).ThenBy(x => x.Name))
     {
       <a @onclick="() => AddToList(tag)">
         <span class="badge bg-secondary mx-3" style="background-color: @ToColor(tag)">
@@ -42,19 +42,45 @@
   private ItemPickerModal? Modal { get; set; }
 
   [Parameter]
-  public List<MealRecipe> SelectedItems { get; set; } = new();
+  public Action? CallBack { get; set; }
+
+  [Parameter]
+  public MealsOfTheDay SelectedItems { get; set; } = new();
 
   [Parameter]
   public List<MealRecipe> AllowedItems { get; set; } = new();
-
+  
   [Parameter]
   public MealType? MealType { get; set; }
 
-  public bool _isListHidden = true;
+  public List<MealRecipe> MappedItems { get; set; } = new();
+  
+  protected override void OnInitialized()
+  {
+    
+    
+  }
+  
+  protected override void OnParametersSet()
+  {
+    Console.Out.WriteLine("SelectedItems.Options" + SelectedItems.Options.StringJoin());
+    MappedItems = AllowedItems.Where(x => SelectedItems.Options.Contains(x.Key)).ToList();
+  }
+
+
 
   private void RemoveItem(MealRecipe tag)
   {
-    SelectedItems.Remove(tag);
+    MappedItems.Remove(tag);
+    SetSelected();
+  }
+
+  private void SetSelected()
+  {
+    SelectedItems.Options.Clear();
+    SelectedItems.Options.Add(MappedItems.Select(x => x.Key).ToList());
+    Console.Out.WriteLine("Setting "+SelectedItems.Options.StringJoin());
+    CallBack?.Invoke();
   }
 
   private string ToColor(MealRecipe tag)
@@ -74,7 +100,8 @@
 
   private void AddToList(MealRecipe tag)
   {
-    SelectedItems.Add(tag);
+    MappedItems.Add(tag);
+    SetSelected();
     Modal?.Close();
   }
 
