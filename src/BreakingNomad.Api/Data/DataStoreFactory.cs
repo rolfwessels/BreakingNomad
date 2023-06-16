@@ -15,4 +15,3 @@ public class DataStoreFactory
   
   public JsonDataStore<PlannedTripResponse> PlannedTrips => new(_folder, (id,trip) => trip.Id = id, trip => trip.Id);
 }
-

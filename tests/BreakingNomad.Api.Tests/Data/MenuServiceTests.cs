@@ -1,6 +1,5 @@
 using BreakingNomad.Api.Data;
 using FluentAssertions;
-
 using NUnit.Framework;
 
 namespace BreakingNomad.Api.Tests.Data;
