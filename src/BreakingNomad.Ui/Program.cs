@@ -12,15 +12,14 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-builder.Services.AddSingleton<IMenuLookup, MenuLookup>();
-builder.Services.AddScoped<GreeterClient>();
-builder.Services.AddScoped<IGreeterService>(services =>
+builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddScoped<IMenuLookup, MenuLookup>();
+builder.Services.AddScoped(_ =>
 {
   Console.Out.WriteLine("Connect");
   var httpClient = new HttpClient(new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
   var channel = GrpcChannel.ForAddress("http://localhost:5200", new GrpcChannelOptions { HttpClient = httpClient });
-  return channel.CreateGrpcService<IGreeterService>();
+  return channel.CreateGrpcService<IMenuService>();
 });
 
 

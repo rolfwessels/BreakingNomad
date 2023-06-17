@@ -1,32 +1,7 @@
 @page "/"
-@using BreakingNomad.Shared
-@inject GreeterClient GreeterService
-
 <PageTitle>Index</PageTitle>
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
-<button @onclick="Hi">@_message</button>
 
-@code {
-
-
-  string _message = "Hello World";
-
-  protected override void OnInitialized()
-  {
-    
-   
-
-  }
-
-  private async Task Hi()
-  {
-    var sayHelloAsync = await GreeterService.SayHelloAsync(new HelloRequest() { Name = "Hi" });
-    Console.Out.WriteLine(sayHelloAsync);
-    _message = sayHelloAsync;
-
-  }
-
-}

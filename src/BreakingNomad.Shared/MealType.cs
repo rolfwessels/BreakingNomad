@@ -1,4 +1,4 @@
-namespace BreakingNomad.Ui.Components.MenuMaker.Models;
+namespace BreakingNomad.Shared;
 
 public enum MealType
 {
@@ -7,16 +7,4 @@ public enum MealType
   Dinner,
   Side,
   Dessert
-}
-
-public enum FoodCategory
-{
-  Protein,
-  Produce,
-  Dairy,
-  Snack,
-  Side,
-  Desert,
-  Drink,
-  Alcohol,
 }

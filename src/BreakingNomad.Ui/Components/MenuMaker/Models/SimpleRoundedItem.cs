@@ -1,3 +1,5 @@
+using BreakingNomad.Shared;
+
 namespace BreakingNomad.Ui.Components.MenuMaker.Models;
 
 public class SimpleRoundedItem

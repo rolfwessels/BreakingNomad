@@ -34,7 +34,7 @@ app.UseGrpcWeb();
 
 app.UseEndpoints(endpoints =>
 {
-  endpoints.MapGrpcService<GreeterService>();
+  endpoints.MapGrpcService<MenuService>().EnableGrpcWeb();
 });
 
 

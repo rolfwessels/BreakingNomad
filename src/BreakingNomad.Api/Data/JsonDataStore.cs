@@ -1,32 +1,28 @@
 using System.Text.Json;
 using BreakingNomad.Api.Helper;
+using BreakingNomad.Shared;
 using Bumbershoot.Utilities.Helpers;
 
 namespace BreakingNomad.Api.Data;
 
-public class JsonDataStore<TDoModel>
+public class JsonDataStore<TDoModel> where TDoModel:IWithId
 {
   private static readonly Semaphore _mutex = new Semaphore(1,1);
-  private readonly Action<string, TDoModel> _addId;
-  private readonly Func<TDoModel, string> _getId;
   private readonly string _folder;
   private readonly string _file;
 
-  public JsonDataStore(string folder, Action<string, TDoModel> addId, Func<TDoModel,string> getId)
+  public JsonDataStore(string folder)
   {
     _folder = folder;
-    _addId = addId;
-    _getId = getId;
     _file = Path.Combine(_folder, $"{typeof(TDoModel).Name}.json");
   }
 
   public  Task<TDoModel> Add(TDoModel request)
   {
    return Wrap (async () => {
-     var readJsonFile =await ReadJsonFile();
-     _addId(Guid.NewGuid().ToString("n"),request);
-     readJsonFile.Add(request);
-     await WriteToFile(readJsonFile);
+     var all =await ReadJsonFile();
+     all.Add(request);
+     await WriteToFile(all);
      return request;
     });
     
@@ -36,7 +32,7 @@ public class JsonDataStore<TDoModel>
   {
     return Wrap (async () => {
       var readJsonFile =await ReadJsonFile();
-      var found = readJsonFile.FirstOrDefault(x=>_getId(x) == id);
+      var found = readJsonFile.FirstOrDefault(x=>x.Id == id);
       if (found == null) throw new Exception("Not Found");
       readJsonFile.Remove(found);
       readJsonFile.Add(request);
@@ -56,7 +52,7 @@ public class JsonDataStore<TDoModel>
     {
       if (string.IsNullOrEmpty(requestId)) throw new Exception("Id is required");
       var readJsonFile = await ReadJsonFile();
-      var remove = readJsonFile.RemoveAll(x =>_getId(x) == requestId);
+      var remove = readJsonFile.RemoveAll(x =>x.Id == requestId);
       await WriteToFile(readJsonFile);
       return remove > 0;
     });
@@ -93,7 +89,6 @@ public class JsonDataStore<TDoModel>
       return new List<TDoModel>();
     }
     var readAllTextAsync = await File.ReadAllTextAsync(_file);
-    Console.Out.WriteLine("readAllTextAsync"+readAllTextAsync);
     return JsonSerializer.Deserialize<List<TDoModel>>(readAllTextAsync,JsonSerializeHelper.Default)!;
   }
 }

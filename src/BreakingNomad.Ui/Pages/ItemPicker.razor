@@ -45,7 +45,7 @@
   public Action? CallBack { get; set; }
 
   [Parameter]
-  public MealsOfTheDay SelectedItems { get; set; } = new();
+  public MealsOfTheDay? SelectedItems { get; set; }
 
   [Parameter]
   public List<MealRecipe> AllowedItems { get; set; } = new();

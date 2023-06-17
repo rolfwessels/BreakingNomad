@@ -76,7 +76,7 @@ public class TripMenu
     var mealsOfTheDay = MealsOfTheDay.FirstOrDefault(x=>x.Day == day && x.Meal == meal);
     if (mealsOfTheDay == null)
     {
-      var ofTheDay = new MealsOfTheDay() { Day = day, Meal = meal, Options = {  }};
+      var ofTheDay = new MealsOfTheDay(1,MealType.Dessert,new List<string>());
       MealsOfTheDay.Add(ofTheDay);
       return ofTheDay;
     }
