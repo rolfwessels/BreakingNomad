@@ -1,6 +1,7 @@
+using BreakingNomad.Shared;
+using BreakingNomad.Shared.Data;
+using BreakingNomad.Shared.Helpers;
 using BreakingNomad.Shared.Services;
-using BreakingNomad.Ui.Components.MenuMaker.Models;
-using BreakingNomad.Ui.Helpers;
 using Bumbershoot.Utilities.Helpers;
 using Grpc.Net.Client;
 using Grpc.Net.Client.Web;

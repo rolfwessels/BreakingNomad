@@ -1,8 +1,7 @@
-using System.Reflection;
+using BreakingNomad.Shared.Helpers;
 using BreakingNomad.Shared.Services;
-using BreakingNomad.Ui.Helpers;
 
-namespace BreakingNomad.Ui.Components.MenuMaker.Models;
+namespace BreakingNomad.Shared.Data;
 
 public class Side
 {

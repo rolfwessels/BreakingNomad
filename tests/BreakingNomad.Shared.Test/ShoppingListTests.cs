@@ -1,5 +1,5 @@
+﻿using BreakingNomad.Shared.Data;
 using BreakingNomad.Shared.Services;
-using BreakingNomad.Ui.Components.MenuMaker.Models;
 using FluentAssertions;
 
 namespace BreakingNomad.Shared.Tests;

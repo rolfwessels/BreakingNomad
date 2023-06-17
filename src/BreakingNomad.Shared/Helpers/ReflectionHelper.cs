@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace BreakingNomad.Ui.Helpers;
+namespace BreakingNomad.Shared.Helpers;
 
 internal static class ReflectionHelper
 {

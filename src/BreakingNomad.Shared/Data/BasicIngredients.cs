@@ -1,6 +1,6 @@
 using BreakingNomad.Shared.Services;
 
-namespace BreakingNomad.Ui.Components.MenuMaker.Models;
+namespace BreakingNomad.Shared.Data;
 
 public class BasicIngredients
 {

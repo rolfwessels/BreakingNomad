@@ -1,4 +1,4 @@
-namespace BreakingNomad.Ui.Components.MenuMaker.Models;
+namespace BreakingNomad.Shared;
 
 public record IngredientPerDay(decimal Amount, Ingredient Ingredient)
 {

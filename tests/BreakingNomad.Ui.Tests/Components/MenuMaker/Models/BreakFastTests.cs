@@ -1,4 +1,4 @@
-using BreakingNomad.Ui.Components.MenuMaker.Models;
+using BreakingNomad.Shared.Data;
 using Bumbershoot.Utilities.Helpers;
 using ConsoleTables;
 

@@ -1,6 +1,6 @@
 using BreakingNomad.Shared.Services;
 
-namespace BreakingNomad.Ui.Components.MenuMaker.Models;
+namespace BreakingNomad.Shared;
 
 public record Ingredient(FoodCategory Category, string Name, ValueWithUnitOfMeasure Value)
 {

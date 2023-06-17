@@ -1,7 +1,6 @@
 using BreakingNomad.Shared.Services;
-using Bumbershoot.Utilities.Helpers;
 
-namespace BreakingNomad.Ui.Components.MenuMaker.Models;
+namespace BreakingNomad.Shared;
 
 public class ShoppingList
 {
@@ -15,9 +14,9 @@ public class ShoppingList
       .Select(x => mealRecipes!.GetValueOrDefault(x, null))
       .Where(x => x != null)
       .SelectMany(mealRecipe=>mealRecipe!.Ingredients.Select(r=>r.For(trip.People)))
-     
       .Select(x=> new Item(x.Category,x.Name,x.Value))
-      ;
+      .GroupBy(x=> new {x.Category,x.Name})
+      .Select(x=> new Item(x.Key.Category,x.Key.Name,ValueWithUnitOfMeasure.Sum(x.Select(r=>r.UnitValue))));
       
     Items.AddRange(recipes);
     

@@ -1,4 +1,4 @@
-using BreakingNomad.Ui.Components.MenuMaker.Models;
+using BreakingNomad.Shared;
 using FluentAssertions;
 
 namespace BreakingNomad.Ui.Tests.Components.MenuMaker.Models;

@@ -1,7 +1,7 @@
 
-using BreakingNomad.Ui.Helpers;
+using BreakingNomad.Shared.Helpers;
 
-namespace BreakingNomad.Ui.Components.MenuMaker.Models;
+namespace BreakingNomad.Shared;
 
 public static class Unit
 {

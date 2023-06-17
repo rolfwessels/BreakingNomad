@@ -1,4 +1,4 @@
-namespace BreakingNomad.Ui.Helpers;
+namespace BreakingNomad.Shared.Helpers;
 
 public static class EnumerableHelper2
 {
