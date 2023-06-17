@@ -58,7 +58,7 @@ public class ValueWithUnitOfMeasureTests
   public void SixPack_GivenDifferentValues_ShouldHaveCompleteValueAndDisplayValue(decimal value,string expected)
   {
     // arrange
-    var egg = Unit.SixPack + value ;
+    var egg = Unit.CanInSixPack + value ;
     // action
     var stringValue = egg.ToString();
     // assert

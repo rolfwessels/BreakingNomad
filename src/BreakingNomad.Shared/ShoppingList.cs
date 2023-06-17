@@ -1,4 +1,5 @@
 using BreakingNomad.Shared.Services;
+using Bumbershoot.Utilities.Helpers;
 
 namespace BreakingNomad.Ui.Components.MenuMaker.Models;
 
@@ -12,26 +13,16 @@ public class ShoppingList
     var mealRecipes = allowedValues.ToDictionary(x => x.Key)!;
     var recipes = trip.MealsOfTheDay.SelectMany(x => x.Options)
       .Select(x => mealRecipes!.GetValueOrDefault(x, null))
-      .Where(x => x != null);
-
-    //Items.AddRange()
+      .Where(x => x != null)
+      .SelectMany(mealRecipe=>mealRecipe!.Ingredients.Select(r=>r.For(trip.People)))
+     
+      .Select(x=> new Item(x.Category,x.Name,x.Value))
+      ;
+      
+    Items.AddRange(recipes);
+    
+    
   }
-
-
   public List<Item> Items { get; }
-
-  public class Item
-  {
-    public FoodCategory Category;
-    public string Name;
-    public string Unit;
-    public ValueWithUnitOfMeasure UnitValue;
-
-    public Item(FoodCategory category, string name, ValueWithUnitOfMeasure unitValue)
-    {
-      Category = category;
-      Name = name;
-      UnitValue = unitValue;
-    }
-  }
+  public record Item(FoodCategory Category, string Name, ValueWithUnitOfMeasure UnitValue);
 }

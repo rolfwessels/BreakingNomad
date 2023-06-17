@@ -12,7 +12,7 @@ public static class Unit
   public static ValueWithUnitOfMeasure Loaf = new ValueWithUnitOfMeasure(0, "Slice")
     .RoundUpTo(12, 1, "Half Loaf").RoundUpTo(24, 1, "Loaf");
 
-  public static ValueWithUnitOfMeasure SixPack = new ValueWithUnitOfMeasure(0, "SixPack")
+  public static ValueWithUnitOfMeasure CanInSixPack = new ValueWithUnitOfMeasure(0, "CanInSixPack")
     .RoundUpTo(1, 1, "Can")
     .RoundUpTo(2, 2, "Cans")
     .RoundUpTo(3, 3, "Cans")
@@ -117,5 +117,15 @@ public record ValueWithUnitOfMeasure(decimal Value, string Name)
       }
 
     return $"{Value} {Name}";
+  }
+
+  public static ValueWithUnitOfMeasure Sum(IEnumerable<ValueWithUnitOfMeasure> select)
+  {
+    var valueWithUnitOfMeasure = select.First();
+    foreach (var measure in select.Skip(1))
+    {
+      valueWithUnitOfMeasure += measure;
+    }
+    return valueWithUnitOfMeasure;
   }
 }
