@@ -58,6 +58,7 @@ internal class MenuLookup : IMenuLookup
     yield return new IngredientPerDay(25m, new Ingredient(FoodCategory.Snack, "Droë wors", Unit.Rand));
     yield return new IngredientPerDay(40m, new Ingredient(FoodCategory.Snack, "Nuts", Unit.Gram));
     yield return new IngredientPerDay(0.2m, new Ingredient(FoodCategory.Snack, "Pack of Sweets", Unit.Pack));
+    yield return new IngredientPerDay(0.5m, new Ingredient(FoodCategory.Snack, "Ice cream", Unit.AUnit));
     yield return new IngredientPerDay(0.5m, new Ingredient(FoodCategory.Snack, "CheesySnacks", Unit.Pack));
   }
 

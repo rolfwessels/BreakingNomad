@@ -107,7 +107,6 @@ else
                   <td>@item.Category</td>
                   <td>@item.Name</td>
                   <td>@item.UnitValue</td>
-
                 </tr>
               }
               </tbody>
@@ -140,7 +139,6 @@ else
     else
     {
       _trip = await MenuLookup.GetUpComingTrip(Id!);
-      _trip.MealsOfTheDay.Where(x=>x.Options.Count >0).Dump("Found");
     }
     _allowedValues = MenuLookup.GetMeals();
     _shoppingList = _trip?.ShoppingListItem.ToList();

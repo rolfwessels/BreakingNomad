@@ -2,6 +2,7 @@
 @using BreakingNomad.Ui.Components
 @using BreakingNomad.Ui.Components.MenuMaker.Models
 @using BreakingNomad.Shared
+@using BreakingNomad.Ui.Helpers
 
 <div >
   @foreach (var tag in MappedItems)
@@ -63,7 +64,7 @@
   
   protected override void OnParametersSet()
   {
-    // Console.Out.WriteLine("SelectedItems.Options" + SelectedItems.Options.StringJoin());
+    Console.Out.WriteLine("SelectedItems.Options" + SelectedItems?.Options?.StringJoin());
     // MappedItems = AllowedItems.Where(x => SelectedItems.Options.Contains(x.Key)).ToList();
   }
 
@@ -77,10 +78,14 @@
 
   private void SetSelected()
   {
-    // SelectedItems.Options.Clear();
-    // SelectedItems.Options.Add(MappedItems.Select(x => x.Key).ToList());
-    // Console.Out.WriteLine("Setting "+SelectedItems.Options.StringJoin());
-    // CallBack?.Invoke();
+    if (SelectedItems != null)
+    {
+      var list = MappedItems.Select(x => x.Key);
+      SelectedItems.AddOption(list);
+      Console.Out.WriteLine("Setting " + SelectedItems.Options.StringJoin());
+      CallBack?.Invoke();
+    }
+    
   }
 
   private string ToColor(MealRecipe tag)

@@ -4,6 +4,22 @@
     "name": "Angola",
     "people": 2,
     "startDate": "2023-06-21T00:00:00",
-    "days": 4
+    "days": 4,
+    "mealsOfTheDay": [
+      {
+        "day": 1,
+        "meal": "Dessert",
+        "options": [
+          "just rice"
+        ]
+      },
+      {
+        "day": 1,
+        "meal": "Dessert",
+        "options": [
+          "woolies salad"
+        ]
+      }
+    ]
   }
 ]
