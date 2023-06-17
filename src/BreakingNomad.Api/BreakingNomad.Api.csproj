@@ -8,9 +8,9 @@
 
   <ItemGroup>
     <PackageReference Include="Bumbershoot.Utilities" Version="1.0.15" />
-    <PackageReference Include="Cronos" Version="0.7.1" />
     <PackageReference Include="Grpc.AspNetCore.Web" Version="2.42.0" />
-    <PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.0.152" />
+    <PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.1.1" />
+    
   </ItemGroup>
 
   <ItemGroup>

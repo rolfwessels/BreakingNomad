@@ -1,6 +1,5 @@
 @page "/menupicker/{id}/update"
 @using Bumbershoot.Utilities.Helpers
-@using Food
 @using BreakingNomad.Ui.Components.MenuMaker
 @using BreakingNomad.Ui.Components.MenuMaker.Models
 @using BreakingNomad.Ui.Components
@@ -71,13 +70,13 @@ else
               <tr>
                 <td>@day.ToString(FormattingConstants.DateAndDay)</td>
                 <td>
-                  <ItemPicker CallBack="OnChange" AllowedItems="_allowedValues" MealType="@MealType.Breakfast" SelectedItems="_trip.GetOrAdd(count, MEAL_TYPE.Breakfast)"></ItemPicker>
+                    <ItemPicker CallBack="OnChange" AllowedItems="_allowedValues" MealType="@MealType.Breakfast" SelectedItems="_trip.GetOrAdd(count, MealType.Breakfast)"></ItemPicker>
                 </td>
                 <td>
-                  <ItemPicker CallBack="OnChange" AllowedItems="_allowedValues" MealType="@MealType.Lunch" SelectedItems="_trip.GetOrAdd(count, MEAL_TYPE.Lunch)"></ItemPicker>
+                    <ItemPicker CallBack="OnChange" AllowedItems="_allowedValues" MealType="@MealType.Lunch" SelectedItems="_trip.GetOrAdd(count, MealType.Lunch)"></ItemPicker>
                 </td>
                 <td>
-                  <ItemPicker CallBack="OnChange" AllowedItems="_allowedValues" MealType="@MealType.Dinner" SelectedItems="_trip.GetOrAdd(count, MEAL_TYPE.Dinner)"></ItemPicker>
+                    <ItemPicker CallBack="OnChange" AllowedItems="_allowedValues" MealType="@MealType.Dinner" SelectedItems="_trip.GetOrAdd(count, MealType.Dinner)"></ItemPicker>
                 </td>
               </tr>
             }

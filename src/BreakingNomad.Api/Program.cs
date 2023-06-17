@@ -1,43 +1,40 @@
+using System.IO.Compression;
 using System.Reflection;
 using BreakingNomad.Api.Data;
 using BreakingNomad.Shared;
 using ProtoBuf.Grpc.Server;
 
 
+const string corsPolicy = "CorsPolicy";
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped(_=> new DataStoreFactory(@"D:\Work\Home\BreakingNomad\var\sampledata"));
 builder.Services.AddScoped(provider=> new MenuService(provider.GetRequiredService<DataStoreFactory>().PlannedTrips));
-builder.Services.AddCodeFirstGrpc(config => { config.ResponseCompressionLevel = System.IO.Compression.CompressionLevel.Optimal; });
 
-// builder.Services.AddCors(setupAction =>
-// {
-//   setupAction.AddDefaultPolicy(policy =>
-//   {
-//     policy.AllowAnyHeader()
-//       .AllowAnyOrigin()
-//       .AllowAnyMethod()
-//       .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding")
-//       .SetPreflightMaxAge(TimeSpan.FromMinutes(20));
-//   });
-// });
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddAuthentication();
-
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy(corsPolicy,
+    p =>
+    {
+      p.AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials()
+        .WithOrigins("http://localhost:5201");
+    });
+});
+builder.Services.AddGrpc();
+builder.Services.AddCodeFirstGrpc(config => { config.ResponseCompressionLevel = CompressionLevel.Optimal; });
 
 
 var app = builder.Build();
-// app.UseCors();
+app.UseCors(corsPolicy);
+
 app.UseRouting();
-app.UseGrpcWeb(new GrpcWebOptions() { DefaultEnabled = true });
+app.UseGrpcWeb();
 
 app.UseEndpoints(endpoints =>
 {
   endpoints.MapGrpcService<GreeterService>();
-
-  
 });
 
 

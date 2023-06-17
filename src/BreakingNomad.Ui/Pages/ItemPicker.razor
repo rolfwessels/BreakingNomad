@@ -1,7 +1,7 @@
 @using Bumbershoot.Utilities.Helpers
-@using Food
 @using BreakingNomad.Ui.Components
 @using BreakingNomad.Ui.Components.MenuMaker.Models
+@using BreakingNomad.Shared
 
 <div >
   @foreach (var tag in MappedItems)
@@ -63,8 +63,8 @@
   
   protected override void OnParametersSet()
   {
-    Console.Out.WriteLine("SelectedItems.Options" + SelectedItems.Options.StringJoin());
-    MappedItems = AllowedItems.Where(x => SelectedItems.Options.Contains(x.Key)).ToList();
+    // Console.Out.WriteLine("SelectedItems.Options" + SelectedItems.Options.StringJoin());
+    // MappedItems = AllowedItems.Where(x => SelectedItems.Options.Contains(x.Key)).ToList();
   }
 
 
@@ -77,10 +77,10 @@
 
   private void SetSelected()
   {
-    SelectedItems.Options.Clear();
-    SelectedItems.Options.Add(MappedItems.Select(x => x.Key).ToList());
-    Console.Out.WriteLine("Setting "+SelectedItems.Options.StringJoin());
-    CallBack?.Invoke();
+    // SelectedItems.Options.Clear();
+    // SelectedItems.Options.Add(MappedItems.Select(x => x.Key).ToList());
+    // Console.Out.WriteLine("Setting "+SelectedItems.Options.StringJoin());
+    // CallBack?.Invoke();
   }
 
   private string ToColor(MealRecipe tag)

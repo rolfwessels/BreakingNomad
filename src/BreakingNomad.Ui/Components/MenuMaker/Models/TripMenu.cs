@@ -1,5 +1,5 @@
+using BreakingNomad.Shared;
 using Bumbershoot.Utilities.Helpers;
-using Food;
 
 namespace BreakingNomad.Ui.Components.MenuMaker.Models;
 
@@ -71,7 +71,7 @@ public class TripMenu
     return tripMenu;
   }
 
-  public MealsOfTheDay GetOrAdd(int day, MEAL_TYPE meal)
+  public MealsOfTheDay GetOrAdd(int day, MealType meal)
   {
     var mealsOfTheDay = MealsOfTheDay.FirstOrDefault(x=>x.Day == day && x.Meal == meal);
     if (mealsOfTheDay == null)
