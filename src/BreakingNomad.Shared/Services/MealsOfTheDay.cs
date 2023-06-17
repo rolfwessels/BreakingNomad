@@ -1,6 +1,6 @@
 using ProtoBuf;
 
-namespace BreakingNomad.Shared;
+namespace BreakingNomad.Shared.Services;
 
 [ProtoContract(SkipConstructor = true)]
 public record MealsOfTheDay(
@@ -9,8 +9,9 @@ public record MealsOfTheDay(
   [property: ProtoMember(3)] List<string> Options
 )
 {
-  public void AddOption(IEnumerable<string> list)
+  public void SetOption(IEnumerable<string> list)
   {
+    Options.Clear();
     Options.AddRange(list);
   }
 }

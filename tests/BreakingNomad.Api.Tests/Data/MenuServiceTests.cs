@@ -1,5 +1,6 @@
 using BreakingNomad.Api.Data;
 using BreakingNomad.Shared;
+using BreakingNomad.Shared.Services;
 using FluentAssertions;
 using NUnit.Framework;
 using ProtoBuf.Grpc;

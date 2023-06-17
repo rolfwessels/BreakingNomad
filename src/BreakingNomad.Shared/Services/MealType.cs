@@ -1,4 +1,4 @@
-namespace BreakingNomad.Shared;
+namespace BreakingNomad.Shared.Services;
 
 public enum MealType
 {

@@ -1,4 +1,3 @@
-using BreakingNomad.Shared;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using BreakingNomad.Ui;
@@ -7,6 +6,7 @@ using BreakingNomad.Ui.Pages;
 using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
 using ProtoBuf.Grpc.Client;
+using BreakingNomad.Shared.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

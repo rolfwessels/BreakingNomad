@@ -1,6 +1,6 @@
 using System.Text.Json;
 using BreakingNomad.Api.Helper;
-using BreakingNomad.Shared;
+using BreakingNomad.Shared.Services;
 using Bumbershoot.Utilities.Helpers;
 
 namespace BreakingNomad.Api.Data;

@@ -1,4 +1,4 @@
-using BreakingNomad.Shared;
+using BreakingNomad.Shared.Services;
 using BreakingNomad.Ui.Components.MenuMaker.Models;
 using BreakingNomad.Ui.Helpers;
 using Bumbershoot.Utilities.Helpers;
@@ -75,8 +75,7 @@ internal class MenuLookup : IMenuLookup
       tripData.StartDate.AddDays(tripData.Days),
       tripData.People);
     tripMenu.MealsOfTheDay = tripData.MealsOfTheDay.OrEmpty().ToList();
-    tripMenu.AddIngredientsPerDay(GetAllIngredientsPerDay());
-    tripMenu.Calculate();
+ 
     return tripMenu;
   }
 

@@ -1,7 +1,7 @@
 using System.ServiceModel;
 using ProtoBuf.Grpc;
 
-namespace BreakingNomad.Shared;
+namespace BreakingNomad.Shared.Services;
 
 [ServiceContract]
 public interface IMenuService

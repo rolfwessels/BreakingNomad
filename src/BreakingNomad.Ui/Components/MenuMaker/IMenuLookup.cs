@@ -9,4 +9,5 @@ public interface IMenuLookup
   List<MealRecipe> GetMeals();
   Task Add(TripMenu trip);
   Task Update(TripMenu trip);
+  List<IngredientPerDay> GetAllIngredientsPerDay();
 }

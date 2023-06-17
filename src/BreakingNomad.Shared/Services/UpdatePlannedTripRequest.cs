@@ -1,6 +1,6 @@
 using ProtoBuf;
 
-namespace BreakingNomad.Shared;
+namespace BreakingNomad.Shared.Services;
 
 [ProtoContract(SkipConstructor = true)]
 public record UpdatePlannedTripRequest(

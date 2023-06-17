@@ -8,16 +8,50 @@
     "mealsOfTheDay": [
       {
         "day": 1,
-        "meal": "Dessert",
+        "meal": "Dinner",
         "options": [
-          "just rice"
+          "fillet",
+          "woolies salad"
+        ]
+      },
+      {
+        "day": 2,
+        "meal": "Dinner",
+        "options": [
+          "baked potatoes",
+          "chicken burgers"
+        ]
+      },
+      {
+        "meal": "Dinner",
+        "options": [
+          "fillet",
+          "woolies salad"
         ]
       },
       {
         "day": 1,
-        "meal": "Dessert",
         "options": [
-          "woolies salad"
+          "cereal"
+        ]
+      },
+      {
+        "day": 2,
+        "options": [
+          "cereal"
+        ]
+      },
+      {
+        "day": 2,
+        "meal": "Lunch",
+        "options": [
+          "braai broodtjies"
+        ]
+      },
+      {
+        "day": 3,
+        "options": [
+          "french toast"
         ]
       }
     ]

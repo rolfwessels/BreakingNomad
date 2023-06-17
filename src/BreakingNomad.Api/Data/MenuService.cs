@@ -1,4 +1,4 @@
-using BreakingNomad.Shared;
+using BreakingNomad.Shared.Services;
 using ProtoBuf.Grpc;
 
 namespace BreakingNomad.Api.Data;

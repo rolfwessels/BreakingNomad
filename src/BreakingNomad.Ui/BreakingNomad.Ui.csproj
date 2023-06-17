@@ -18,7 +18,7 @@
   </ItemGroup>
  
   <ItemGroup>
-    <Folder Include="Helpers\" />
+    <Folder Include="Components\MenuMaker\Models\" />
     <Folder Include="Pages\SharedComponents\" />
   </ItemGroup>
   <ItemGroup>

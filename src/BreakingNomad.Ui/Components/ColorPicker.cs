@@ -1,4 +1,4 @@
-using BreakingNomad.Shared;
+using BreakingNomad.Shared.Services;
 using BreakingNomad.Ui.Components.MenuMaker.Models;
 
 namespace BreakingNomad.Ui.Components;

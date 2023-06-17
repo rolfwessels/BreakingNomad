@@ -1,9 +1,10 @@
 @page "/menupicker/{id}/update"
-@using Bumbershoot.Utilities.Helpers
 @using BreakingNomad.Ui.Components.MenuMaker
 @using BreakingNomad.Ui.Components.MenuMaker.Models
+@using BreakingNomad.Ui.Helpers
 @using BreakingNomad.Ui.Components
-@using BreakingNomad.Shared
+@using BreakingNomad.Shared.Services
+@using Bumbershoot.Utilities.Helpers
 
 @inject IMenuLookup MenuLookup
 @inject NavigationManager NavigationManager
@@ -101,7 +102,7 @@ else
               </tr>
               </thead>
               <tbody>
-              @foreach (var item in _shoppingList)
+              @foreach (var item in _shoppingList.Items)
               {
                 <tr>
                   <td>@item.Category</td>
@@ -122,8 +123,9 @@ else
 @code {
   private TripMenu? _trip;
   private List<MealRecipe>? _allowedValues;
-  private List<ShoppingListItem>? _shoppingList;
+  private ShoppingList? _shoppingList;
   private bool _isNew = true;
+  private List<IngredientPerDay> _dailyIngredients = new List<IngredientPerDay>();
 
 
   [Parameter]
@@ -139,25 +141,20 @@ else
     else
     {
       _trip = await MenuLookup.GetUpComingTrip(Id!);
+      _trip.MealsOfTheDay.Dump("_trip");
+      
+      StateHasChanged();
     }
+    _dailyIngredients = MenuLookup.GetAllIngredientsPerDay();
     _allowedValues = MenuLookup.GetMeals();
-    _shoppingList = _trip?.ShoppingListItem.ToList();
-    await Console.Out.WriteLineAsync("Loaded ");
-    StateHasChanged();
-  }
+    _shoppingList = new ShoppingList(_allowedValues, _trip, _dailyIngredients);
 
 
-  private List<MealRecipe> Lists(MealRecipe? recipe)
-  {
-    var stringList = new List<MealRecipe>();
-    if (recipe != null) stringList.Add(recipe);
-    return stringList;
   }
 
   private void DelayRefresh()
   {
-    _trip?.Calculate();
-    _shoppingList = _trip?.ShoppingListItem.ToList();
+    _shoppingList = new ShoppingList(_allowedValues.OrEmpty(), _trip ?? new TripMenu(), _dailyIngredients);
     if (!_isNew)
       MenuLookup.Update(_trip!);
   }

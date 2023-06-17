@@ -1,6 +1,4 @@
-
-
-using BreakingNomad.Shared;
+using BreakingNomad.Shared.Services;
 
 namespace BreakingNomad.Api.Data;
 
