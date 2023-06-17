@@ -1,4 +1,5 @@
 using BreakingNomad.Shared.Services;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BreakingNomad.Shared.Data;
 
@@ -9,14 +10,14 @@ public class BasicIngredients
     return From("Eggs", amount, "Carton");
   }
 
-  public static Ingredient From(string name, decimal amount, string defaultFor1)
+  public static Ingredient From(string name, decimal amount, string defaultFor1, FoodCategory cat = FoodCategory.Produce)
   {
-    return new Ingredient(FoodCategory.Produce,name,Unit.ByName(defaultFor1) + amount);
+    return new Ingredient(cat,name,Unit.ByName(defaultFor1) + amount);
   }
 
   public static Ingredient Bacon(decimal amount = 1)
   {
-    return From("Bacon", amount, "pack");
+    return From("Bacon", amount, "pack",FoodCategory.Protein);
   }
 
   public static Ingredient BreadSlice(decimal amount = 2)
@@ -71,7 +72,7 @@ public class BasicIngredients
 
   public static Ingredient Ham(decimal amount = 1)
   {
-    return From("Ham", amount, "Gram");
+    return From("Ham", amount, "Gram",FoodCategory.Protein);
   }
 
   public static Ingredient Potato(decimal amount = 2)

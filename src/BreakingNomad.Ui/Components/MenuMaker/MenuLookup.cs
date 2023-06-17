@@ -46,7 +46,7 @@ internal class MenuLookup : IMenuLookup
     yield return new IngredientPerDay(0.2m, new Ingredient(FoodCategory.Drink, "Tonic", Unit.Bottle750));
 
     yield return new IngredientPerDay(1, new Ingredient(FoodCategory.Drink, "Coke Can", Unit.CanInSixPack));
-    yield return new IngredientPerDay(0.25m, new Ingredient(FoodCategory.Drink, "Milk", Unit.Litre));
+    yield return new IngredientPerDay(0.25m, BasicIngredients.Milk() );
     yield return new IngredientPerDay(2m, new Ingredient(FoodCategory.Drink, "Water", Unit.Litre));
     yield return new IngredientPerDay(0.2m, new Ingredient(FoodCategory.Drink, "Orange juice", Unit.Litre));
     yield return new IngredientPerDay(41, new Ingredient(FoodCategory.Drink, "Koffee", Unit.Gram));

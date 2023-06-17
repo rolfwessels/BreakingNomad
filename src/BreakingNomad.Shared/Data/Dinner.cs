@@ -11,7 +11,7 @@ public class Dinner
     
     new []
     {
-      BasicIngredients.From("Chicken Espetada", 0.5m, "pack")
+      BasicIngredients.From("Chicken Espetada", 0.5m, "pack",FoodCategory.Protein)
     }
   );
 
@@ -21,7 +21,7 @@ public class Dinner
     
     new []
     {
-      BasicIngredients.From("Salmon", 200, "gram")
+      BasicIngredients.From("Salmon", 200, "gram",FoodCategory.Protein)
     }
   );
 
@@ -31,7 +31,7 @@ public class Dinner
     
     new []
     {
-      BasicIngredients.From("Port Fillet", 200, "gram")
+      BasicIngredients.From("Port Fillet", 200, "gram", FoodCategory.Protein)
     }
   );
 
@@ -41,7 +41,7 @@ public class Dinner
     
     new []
     {
-      BasicIngredients.From("Chicken", 0.5m, "unit")
+      BasicIngredients.From("Chicken", 0.5m, "unit", FoodCategory.Protein)
     }
   );
 
@@ -51,7 +51,7 @@ public class Dinner
     
     new []
     {
-      BasicIngredients.From("Fillet", 250, "gram")
+      BasicIngredients.From("Fillet", 250, "gram",FoodCategory.Protein)
     }
   );
 
@@ -61,7 +61,7 @@ public class Dinner
     
     new []
     {
-      BasicIngredients.From("Wors", 250, "gram")
+      BasicIngredients.From("Wors", 250, "gram",FoodCategory.Protein)
     }
   );
 
@@ -72,7 +72,7 @@ public class Dinner
     
     new []
     {
-      BasicIngredients.From("Pork", 200, "gram"),
+      BasicIngredients.From("Pork", 200, "gram", FoodCategory.Protein),
       BasicIngredients.From("Appricot-Jam", 0.15m, "tin"),
       BasicIngredients.From("Mayo", 0.10m, "bottle"),
       BasicIngredients.From("Onion", 0.15m, "unit"),
@@ -87,7 +87,7 @@ public class Dinner
     
     new []
     {
-      BasicIngredients.From("Tuna", 200, "gram")
+      BasicIngredients.From("Tuna", 200, "gram", FoodCategory.Protein)
     }
   );
 
@@ -98,7 +98,7 @@ public class Dinner
     
     new []
     {
-      BasicIngredients.From("Pork Belly", 250, "gram")
+      BasicIngredients.From("Pork Belly", 250, "gram",FoodCategory.Protein)
     }
   );
 
@@ -108,7 +108,7 @@ public class Dinner
     
     new []
     {
-      BasicIngredients.From("Burgers Patty", 250, "gram"),
+      BasicIngredients.From("Burgers Patty", 250, "gram",FoodCategory.Protein),
       BasicIngredients.From("Burger Bun", 1, "unit"),
       BasicIngredients.Cheese(),
       BasicIngredients.SaladLeaves(),
@@ -122,7 +122,7 @@ public class Dinner
     
     new []
     {
-      BasicIngredients.From("Chicken With Skin", 200, "gram"),
+      BasicIngredients.From("Chicken With Skin", 200, "gram",FoodCategory.Protein),
       BasicIngredients.From("Mayo", 0.10m, "bottle"),
       BasicIngredients.From("Apricot Yam", 124, "ml"),
       BasicIngredients.From("Garlic", 1, "unit"),
@@ -138,7 +138,7 @@ public class Dinner
     
     new []
     {
-      BasicIngredients.From("Chicken breasts", 250, "gram"),
+      BasicIngredients.From("Chicken breasts", 250, "gram",FoodCategory.Protein),
       BasicIngredients.Flour(100m),
       BasicIngredients.From("Lightly salted chips", 100, "gram"),
       BasicIngredients.Eggs(),
@@ -160,7 +160,7 @@ public class Dinner
     
     new []
     {
-      BasicIngredients.From("Beef Steak", 250, "gram"),
+      BasicIngredients.From("Beef Steak", 250, "gram",FoodCategory.Protein),
       BasicIngredients.From("Mushroom sauce", 100, "ml")
     }
   );

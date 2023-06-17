@@ -1,4 +1,4 @@
-﻿using BreakingNomad.Shared.Data;
+using BreakingNomad.Shared.Data;
 using BreakingNomad.Shared.Services;
 using FluentAssertions;
 
@@ -77,6 +77,28 @@ public class ShoppingListTests
     shoppingList.Items.Should().HaveCount(3);
     var shoppingListItem = shoppingList.Items.First(x=>x.Name == "Eggs");
     shoppingListItem.UnitValue.Value.Should().Be(12);
+  }
+
+  [Test]
+  public void Constructor_GivenMixedIngredient_ShouldContainItems()
+  {
+    // arrange
+    var startDate = DateTime.Now.Date;
+    var tripMenu = TripMenu.From("","",startDate,startDate.AddDays(2),3);
+    var ingredientPerDays = new List<IngredientPerDay>() { new(1, BasicIngredients.Milk())};
+    var allowedValues = new List<MealRecipe>() { new(MealType.Breakfast,"Omelette", new [] 
+      {
+        BasicIngredients.Milk() with{ Category = FoodCategory.Produce }
+      }
+    )};
+    tripMenu.MealsOfTheDay.Add(new MealsOfTheDay(1,MealType.Breakfast, new List<string>(){allowedValues[0].Key}));
+    tripMenu.MealsOfTheDay.Add(new MealsOfTheDay(1,MealType.Lunch, new List<string>(){allowedValues[0].Key}));
+    // action
+    var shoppingList = new ShoppingList(allowedValues,tripMenu,ingredientPerDays);
+    // assert
+    shoppingList.Items.Should().HaveCount(1);
+    var shoppingListItem = shoppingList.Items.First(x=>x.Name == "Milk");
+    shoppingListItem.UnitValue.Value.Should().Be(7.2m);
   }
 
 }
